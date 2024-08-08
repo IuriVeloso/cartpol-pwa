@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, LegacyRef, useMemo } from "react";
+import { MapContainer } from "react-leaflet";
+
+import "leaflet/dist/leaflet.css";
 import "./styles.css";
 import { useGetStates } from "../../hooks/states";
 import { useGetCounties } from "../../hooks/counties";
@@ -10,6 +13,12 @@ import SelectValues from "./components/SelectValues";
 import { Political } from "../../api/politicals/types";
 import { County } from "../../api/counties/types";
 import { Grid, Paper, styled } from "@mui/material";
+import Shapefile from "./components/Shapefile";
+
+import { zipCountyUrl } from "../../assets/maps";
+import zipCountyRJUrl from "../../assets/maps/county/rio_de_janeiro.zip";
+
+import { LatLngExpression, Map } from "leaflet";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,9 +28,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Home: React.FC = () => {
+  const mapRef: LegacyRef<Map> = useRef(null);
+
   const [state, setState] = useState("");
   const [county, setCounty] = useState("");
   const [political, setPolitical] = useState("");
+
+  const zipUrl = useMemo(() => zipCountyUrl[state], [state]);
 
   const { data: allStates, isLoading: isLoadingState } = useGetStates();
   const {
@@ -55,6 +68,8 @@ const Home: React.FC = () => {
     event.preventDefault();
     setPolitical(event.target.value as string);
   };
+
+  const position: LatLngExpression = [-22.8139134, -43.3399108];
 
   return (
     <div className="App base-background">
@@ -101,7 +116,18 @@ const Home: React.FC = () => {
               </Item>
             </Grid>
           </Grid>
-          <Grid xs={6}>Ola</Grid>
+          <Grid xs={6}>
+            <MapContainer
+              center={position}
+              zoom={8}
+              zoomAnimation={true}
+              fadeAnimation={true}
+              style={{ height: "50vh" }}
+              ref={mapRef}
+            >
+              <Shapefile zipUrl={zipCountyRJUrl} />
+            </MapContainer>
+          </Grid>
         </Grid>
       </div>
     </div>

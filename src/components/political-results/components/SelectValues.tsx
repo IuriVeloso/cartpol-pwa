@@ -23,7 +23,6 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   value,
   label,
 }) => {
-  console.log(value);
   return (
     <FormControl sx={{ minWidth: "100%" }}>
       <InputLabel>{label}</InputLabel>
