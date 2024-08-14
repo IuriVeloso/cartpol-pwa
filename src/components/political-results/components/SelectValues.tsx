@@ -3,17 +3,20 @@ import React from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import CircularProgress from "@mui/material/CircularProgress";
+import { FormControl, InputLabel } from "@mui/material";
+
 import { State } from "../../../api/states/types";
 import { County } from "../../../api/counties/types";
 import { Political } from "../../../api/politicals/types";
-import { FormControl, InputLabel } from "@mui/material";
+import { Election } from "../../../api/time/types";
 
 interface SelectValuesInterface {
-  values: State[] | County[] | Political[];
+  values: State[] | County[] | Political[] | Election[];
   onChange: (event: SelectChangeEvent) => void;
   isLoading: boolean;
   value: string;
   label: string;
+  param?: string;
 }
 
 const SelectValues: React.FC<SelectValuesInterface> = ({
@@ -22,6 +25,7 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   isLoading,
   value,
   label,
+  param = "name",
 }) => {
   return (
     <FormControl sx={{ minWidth: "100%" }}>
@@ -36,7 +40,7 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
         {isLoading && <CircularProgress />}
         {values?.map((eachState) => (
           <MenuItem key={eachState.id} value={eachState.id}>
-            {eachState.name}
+            {eachState[param]}
           </MenuItem>
         ))}
       </Select>

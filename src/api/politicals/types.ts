@@ -9,3 +9,17 @@ export type Political = {
   political_type: number;
   election: number;
 };
+
+export type PoliticalVotes = {
+  total_votes: number;
+  neighborhood: string;
+  ruesp_can: number;
+  rcan_uesp: number;
+};
+
+export type PoliticalTypes = {
+  id: number;
+  name: string;
+  description: string;
+  election: number;
+};

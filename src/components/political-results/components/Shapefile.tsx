@@ -2,8 +2,12 @@ import React, { useEffect } from "react";
 import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
 import shp, { FeatureCollectionWithFilename } from "shpjs";
+import { PoliticalVotes } from "../../../api/types";
 
-const Shapefile: React.FC<{ zipUrl: string }> = ({ zipUrl }) => {
+const Shapefile: React.FC<{
+  zipUrl: string;
+  politicalData: Array<PoliticalVotes>;
+}> = ({ zipUrl, politicalData = [] }) => {
   const { map } = useLeafletContext();
 
   useEffect(() => {
@@ -20,18 +24,47 @@ const Shapefile: React.FC<{ zipUrl: string }> = ({ zipUrl }) => {
           }
         },
         bubblingMouseEvents: false,
+        style: function (feature) {
+          if (Boolean(politicalData.length)) {
+            const neighborhood = politicalData.find(
+              (eachData) =>
+                eachData.neighborhood === feature.properties.name_neigh,
+            );
+
+            if (Boolean(neighborhood?.total_votes)) {
+              return {
+                fillOpacity: neighborhood?.ruesp_can,
+                fillColor: "#2500f7",
+              };
+            }
+            return { fillOpacity: 0, fillColor: "#2500f7", weight: 0 };
+          }
+          return { fillOpacity: 0, fillColor: "#2500f7", weight: 0 };
+        },
       },
     )
       .bindTooltip((e) => {
-        return `Bairro ${e.feature.properties.name_neigh}`;
+        if (!Boolean(politicalData.length)) {
+          return `Bairro ${e.feature.properties.name_neigh}`;
+        }
+
+        const neighborhood = politicalData.find(
+          (eachData) =>
+            eachData.neighborhood === e.feature.properties.name_neigh,
+        );
+
+        if (Boolean(neighborhood)) {
+          return `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}`;
+        }
+
+        return `Bairro ${e.feature.properties.name_neigh} <br/>Votos 0`;
       })
       .addTo(map);
-    // console.log(zipUrl);
 
     shp(zipUrl).then((data) => {
       geo.addData(data as FeatureCollectionWithFilename);
     });
-  }, [map, zipUrl]);
+  }, [map, zipUrl, politicalData]);
 
   return null;
 };
