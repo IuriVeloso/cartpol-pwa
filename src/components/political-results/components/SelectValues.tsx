@@ -16,6 +16,7 @@ interface SelectValuesInterface {
   isLoading: boolean;
   value: string;
   label: string;
+  disabled: boolean;
   param?: string;
 }
 
@@ -25,10 +26,11 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   isLoading,
   value,
   label,
+  disabled,
   param = "name",
 }) => {
   return (
-    <FormControl sx={{ minWidth: "100%" }}>
+    <FormControl sx={{ minWidth: "100%" }} disabled={disabled}>
       <InputLabel>{label}</InputLabel>
       <Select
         labelId="select-states"

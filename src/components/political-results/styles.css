@@ -20,7 +20,13 @@
   }
   
   .base-results{
-	margin-top: 24vh;
+	margin-top: 30px;
+	width: 100%;
+  }
+
+  .results-screen{
+	margin-top: 30px;
+	width: 100%;
   }
 
 

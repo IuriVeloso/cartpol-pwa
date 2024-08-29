@@ -26,6 +26,6 @@ export const getPoliticalTypes = async (
 export const getVotes = async (political_id: string) => {
   const url = "/political-votes/" + political_id;
 
-  const { data }: { data: Array<PoliticalVotes> } = await axios.get(url);
+  const { data }: { data: PoliticalVotes } = await axios.get(url);
   return data;
 };

@@ -11,10 +11,19 @@ export type Political = {
 };
 
 export type PoliticalVotes = {
+  votes_by_neighborhood: Array<VotesNeighborhood>;
+  min_ruesp_can: number;
+  max_ruesp_can: number;
+  min_rcan_uesp: number;
+  max_rcan_uesp: number;
+};
+
+export type VotesNeighborhood = {
   total_votes: number;
   neighborhood: string;
   ruesp_can: number;
   rcan_uesp: number;
+  ruesp: number;
 };
 
 export type PoliticalTypes = {

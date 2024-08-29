@@ -90,13 +90,8 @@ const Home: React.FC = () => {
   const handleChangeCounty = (event: SelectChangeEvent) => {
     event.preventDefault();
     setCounty(event.target.value as string);
+    mutatePoliticals();
     setPolitical("");
-  };
-
-  const handleChangePolitical = (event: SelectChangeEvent) => {
-    event.preventDefault();
-    setPolitical(event.target.value as string);
-    mutateVotes();
   };
 
   const handleChangePoliticalType = (event: SelectChangeEvent) => {
@@ -106,21 +101,48 @@ const Home: React.FC = () => {
     setPolitical("");
   };
 
-  const position: LatLngExpression = [-22.8139134, -43.3399108];
+  const handleChangePolitical = (event: SelectChangeEvent) => {
+    event.preventDefault();
+    console.log("clicou");
+    setPolitical(event.target.value);
+
+    mutateVotes();
+  };
+
+  // const position: LatLngExpression = [-19.912998, -43.940933]; // BH
+  const position: LatLngExpression = [-22.8139134, -43.3399108]; // RJ
+  // const position: LatLngExpression = [-23.533773, -46.62529]; // SP
+
+  const shouldRenderMap = useMemo(
+    () =>
+      Boolean(zipUrl) &&
+      !isLoadingVotes &&
+      politicalVotes &&
+      Boolean(political),
+    [zipUrl, isLoadingVotes, politicalVotes, political],
+  );
 
   return (
     <div className="App base-background">
       <div className="base-box">
-        <Grid container xs className="base-results">
+        <Grid
+          key="base-results"
+          className="base-results"
+          xs
+          container
+          rowSpacing={3}
+        >
           <Grid
-            xs={6}
+            className="results-screen"
+            key="results-screen"
+            xs={12}
             container
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            id="results-screen"
           >
             <Grid xs={3}>
               <Item>
                 <SelectValues
+                  disabled={false}
                   value={year}
                   isLoading={isLoadingYears}
                   values={searchElections}
@@ -133,6 +155,7 @@ const Home: React.FC = () => {
             <Grid xs={3}>
               <Item>
                 <SelectValues
+                  disabled={!Boolean(year)}
                   value={state}
                   isLoading={isLoadingState}
                   values={allStates}
@@ -145,6 +168,7 @@ const Home: React.FC = () => {
             <Grid xs={6}>
               <Item>
                 <SelectValues
+                  disabled={!Boolean(state)}
                   value={county}
                   isLoading={isLoadingCounty}
                   values={searchCounties as County[]}
@@ -156,6 +180,7 @@ const Home: React.FC = () => {
             <Grid xs={3}>
               <Item>
                 <SelectValues
+                  disabled={!Boolean(county)}
                   value={politicalType}
                   isLoading={isLoadingPoliticalTypes}
                   values={searchPoliticalTypes as PoliticalTypes[]}
@@ -167,6 +192,7 @@ const Home: React.FC = () => {
             <Grid xs={9}>
               <Item>
                 <SelectValues
+                  disabled={!Boolean(politicalType)}
                   value={political}
                   isLoading={isLoadingPolitical}
                   values={searchPoliticals as Political[]}
@@ -176,7 +202,7 @@ const Home: React.FC = () => {
               </Item>
             </Grid>
           </Grid>
-          <Grid xs={6}>
+          <Grid item key="map-container" xs={12}>
             <MapContainer
               center={position}
               zoom={12}
@@ -184,12 +210,13 @@ const Home: React.FC = () => {
               fadeAnimation={true}
               style={{ height: "50vh" }}
               ref={mapRef}
+              key={political}
+              attributionControl={false}
             >
               {isLoadingVotes && (
                 <CircularProgress sx={{ mt: "40%" }} size={80} />
               )}
-
-              {Boolean(zipUrl) && (
+              {shouldRenderMap && (
                 <Shapefile zipUrl={zipUrl} politicalData={politicalVotes} />
               )}
             </MapContainer>
