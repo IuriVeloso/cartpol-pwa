@@ -53,7 +53,7 @@ http {
 
 		location / {
 			## Clean URLs: match on extensionless requests.
-			try_files $uri $uri/ /index.html;
+			try_files $uri $uri/ /build/index.html =404;
 
 			## Single-page app client-side routing: returns index.html if the requested path doesn't exist.
 			## When enabled, the client-side app must handle its own 404 errors.
