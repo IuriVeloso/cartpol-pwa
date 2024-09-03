@@ -38,7 +38,7 @@ http {
 
 	server {
 		listen <%= ENV["PORT"] %>;
-		server_name _;
+		server_name cartpol-de4ebf8415a8.herokuapp.com;
 		keepalive_timeout 5;
 		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
@@ -49,6 +49,7 @@ http {
 
 		## Document root
 		root /build;
+		index index.html index.htm index.nginx-debian.html;
 
 		location / {
 			## Clean URLs: match on extensionless requests.
