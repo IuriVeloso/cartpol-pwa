@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b769a927.css",
-    "main.js": "/static/js/main.e3550719.js",
+    "main.js": "/static/js/main.2920f62e.js",
     "static/media/rio_de_janeiro.zip": "/static/media/rio_de_janeiro.961460a3a831233c4d78.zip",
     "static/media/porto_alegre.zip": "/static/media/porto_alegre.dbdd9b40aa3d02477151.zip",
     "static/media/sao_paulo.zip": "/static/media/sao_paulo.cb7acf26706c69d6538b.zip",
@@ -14,10 +14,10 @@
     "static/media/belem.zip": "/static/media/belem.b0e2a99a09d0d2a32977.zip",
     "index.html": "/index.html",
     "main.b769a927.css.map": "/static/css/main.b769a927.css.map",
-    "main.e3550719.js.map": "/static/js/main.e3550719.js.map"
+    "main.2920f62e.js.map": "/static/js/main.2920f62e.js.map"
   },
   "entrypoints": [
     "static/css/main.b769a927.css",
-    "static/js/main.e3550719.js"
+    "static/js/main.2920f62e.js"
   ]
 }
