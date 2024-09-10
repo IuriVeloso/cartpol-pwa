@@ -30,7 +30,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Home: React.FC = () => {
+const PoliticalResults: React.FC = () => {
   const mapRef: LegacyRef<Map> = useRef(null);
 
   const [state, setState] = useState("");
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
 
   const handleChangePolitical = (event: SelectChangeEvent) => {
     event.preventDefault();
-    console.log("clicou");
+
     setPolitical(event.target.value);
 
     mutateVotes();
@@ -123,108 +123,102 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className="App base-background">
-      <div className="base-box">
-        <Grid
-          key="base-results"
-          className="base-results"
-          xs
-          container
-          rowSpacing={3}
-        >
-          <Grid
-            className="results-screen"
-            key="results-screen"
-            xs={12}
-            container
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid xs={3}>
-              <Item>
-                <SelectValues
-                  disabled={false}
-                  value={year}
-                  isLoading={isLoadingYears}
-                  values={searchElections}
-                  onChange={handleChangeYear}
-                  label="Ano"
-                  param="year"
-                />
-              </Item>
-            </Grid>
-            <Grid xs={3}>
-              <Item>
-                <SelectValues
-                  disabled={!Boolean(year)}
-                  value={state}
-                  isLoading={isLoadingState}
-                  values={allStates}
-                  onChange={handleChangeState}
-                  label="Estado"
-                />
-              </Item>
-            </Grid>
-
-            <Grid xs={6}>
-              <Item>
-                <SelectValues
-                  disabled={!Boolean(state)}
-                  value={county}
-                  isLoading={isLoadingCounty}
-                  values={searchCounties as County[]}
-                  onChange={handleChangeCounty}
-                  label="Municipio"
-                />
-              </Item>
-            </Grid>
-            <Grid xs={3}>
-              <Item>
-                <SelectValues
-                  disabled={!Boolean(county)}
-                  value={politicalType}
-                  isLoading={isLoadingPoliticalTypes}
-                  values={searchPoliticalTypes as PoliticalTypes[]}
-                  onChange={handleChangePoliticalType}
-                  label="Cargo"
-                />
-              </Item>
-            </Grid>
-            <Grid xs={9}>
-              <Item>
-                <SelectValues
-                  disabled={!Boolean(politicalType)}
-                  value={political}
-                  isLoading={isLoadingPolitical}
-                  values={searchPoliticals as Political[]}
-                  onChange={handleChangePolitical}
-                  label="Politico"
-                />
-              </Item>
-            </Grid>
-          </Grid>
-          <Grid item key="map-container" xs={12}>
-            <MapContainer
-              center={position}
-              zoom={12}
-              zoomAnimation={true}
-              fadeAnimation={true}
-              style={{ height: "50vh" }}
-              ref={mapRef}
-              key={political}
-              attributionControl={false}
-            >
-              {isLoadingVotes && (
-                <CircularProgress sx={{ mt: "40%" }} size={80} />
-              )}
-              {shouldRenderMap && (
-                <Shapefile zipUrl={zipUrl} politicalData={politicalVotes} />
-              )}
-            </MapContainer>
-          </Grid>
+    <Grid
+      key="base-results"
+      className="base-results"
+      xs
+      container
+      rowSpacing={3}
+    >
+      <Grid
+        className="results-screen"
+        key="results-screen"
+        xs={12}
+        container
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
+        <Grid xs={3}>
+          <Item>
+            <SelectValues
+              disabled={false}
+              value={year}
+              isLoading={isLoadingYears}
+              values={searchElections}
+              onChange={handleChangeYear}
+              label="Ano"
+              param="year"
+            />
+          </Item>
         </Grid>
-      </div>
-    </div>
+        <Grid xs={3}>
+          <Item>
+            <SelectValues
+              disabled={!Boolean(year)}
+              value={state}
+              isLoading={isLoadingState}
+              values={allStates}
+              onChange={handleChangeState}
+              label="Estado"
+            />
+          </Item>
+        </Grid>
+
+        <Grid xs={6}>
+          <Item>
+            <SelectValues
+              disabled={!Boolean(state)}
+              value={county}
+              isLoading={isLoadingCounty}
+              values={searchCounties as County[]}
+              onChange={handleChangeCounty}
+              label="Municipio"
+            />
+          </Item>
+        </Grid>
+        <Grid xs={3}>
+          <Item>
+            <SelectValues
+              disabled={!Boolean(county)}
+              value={politicalType}
+              isLoading={isLoadingPoliticalTypes}
+              values={searchPoliticalTypes as PoliticalTypes[]}
+              onChange={handleChangePoliticalType}
+              label="Cargo"
+            />
+          </Item>
+        </Grid>
+        <Grid xs={9}>
+          <Item>
+            <SelectValues
+              disabled={!Boolean(politicalType)}
+              value={political}
+              isLoading={isLoadingPolitical}
+              values={searchPoliticals as Political[]}
+              onChange={handleChangePolitical}
+              label="Politico"
+            />
+          </Item>
+        </Grid>
+      </Grid>
+      <Grid item key="map-container" xs={12}>
+        <MapContainer
+          center={position}
+          zoom={12}
+          zoomAnimation={true}
+          fadeAnimation={true}
+          style={{ height: "50vh" }}
+          ref={mapRef}
+          key={political}
+          attributionControl={false}
+        >
+          {isLoadingVotes && <CircularProgress sx={{ mt: "40%" }} size={80} />}
+          {shouldRenderMap && (
+            <Shapefile zipUrl={zipUrl} politicalData={politicalVotes} />
+          )}
+        </MapContainer>
+      </Grid>
+    </Grid>
   );
 };
 
-export default Home;
+export default PoliticalResults;

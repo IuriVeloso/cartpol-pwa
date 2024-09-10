@@ -1,0 +1,11 @@
+.footer-container{
+	display: block;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.footer-logos{
+	margin: 16px;
+	width: 30%;
+}

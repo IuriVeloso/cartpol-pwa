@@ -10,7 +10,7 @@ const Shapefile: React.FC<{
   politicalData: PoliticalVotes;
 }> = ({ zipUrl, politicalData }) => {
   const { map } = useLeafletContext();
-  L.control.attribution({ prefix: "CartPol 2" }).addTo(map);
+  L.control.attribution({ prefix: "CartPol" }).addTo(map);
 
   useEffect(() => {
     const { votes_by_neighborhood, min_rcan_uesp, max_rcan_uesp } =
@@ -46,7 +46,6 @@ const Shapefile: React.FC<{
                 fillColor: "#100069",
               };
             }
-            return { fillOpacity: 0, fillColor: "#100069", weight: 0 };
           }
           return { fillOpacity: 0, fillColor: "#100069", weight: 1 };
         },

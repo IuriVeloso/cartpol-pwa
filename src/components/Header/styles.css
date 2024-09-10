@@ -1,0 +1,16 @@
+.header-container{
+	background-color: #0f0f0f;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	min-height: 48px;
+	height: 10vh;
+	max-height: 64px;
+}
+
+.header-title {
+	padding: 32px;
+	color: #f0f0f0;
+}

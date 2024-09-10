@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.App {
+	text-align: center;
+  }
+  
+  .base-background {
+	background-color: #f1f1f1;
+	min-height: 100vh;
+	color: rgb(43, 43, 43);
+  }
+
+  .base-box{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100%;
+	max-width: 90%;
+	margin: 0 auto;
+	font-size: calc(10px + 2vmin);
+  }
