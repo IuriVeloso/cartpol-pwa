@@ -11,7 +11,6 @@ const Shapefile: React.FC<{
   setVotesInfo: (value: []) => void;
 }> = ({ zipUrl, politicalData, setVotesInfo }) => {
   const { map } = useLeafletContext();
-  L.control.attribution({ prefix: "CartPol" }).addTo(map);
 
   useEffect(() => {
     const { votes_by_neighborhood, min_rcan_uesp, max_rcan_uesp } =
@@ -88,6 +87,7 @@ const Shapefile: React.FC<{
     shp(zipUrl).then((data) => {
       const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
       map.fitBounds(geoJSON.getBounds());
+      L.control.attribution({ prefix: "CartPol" }).addTo(map);
     });
   }, [map, zipUrl, politicalData, setVotesInfo]);
 

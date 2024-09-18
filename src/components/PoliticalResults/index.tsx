@@ -200,13 +200,15 @@ const PoliticalResults: React.FC = () => {
       </Grid>
       <Grid item key="map-container" xs={12}>
         <MapContainer
-          zoom={12}
           zoomAnimation={true}
           fadeAnimation={true}
           style={{ height: "50vh" }}
           ref={mapRef}
           key={political}
           attributionControl={false}
+          zoomDelta={0.5}
+          zoomSnap={0.5}
+          wheelPxPerZoomLevel={120}
         >
           {isLoadingVotes && <CircularProgress sx={{ mt: "40%" }} size={80} />}
           {shouldRenderMap && (
