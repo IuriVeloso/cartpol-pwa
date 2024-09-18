@@ -2,7 +2,7 @@ import React, { useState, useRef, LegacyRef, useMemo } from "react";
 import { MapContainer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { CircularProgress, Grid, Paper, styled } from "@mui/material";
-import { LatLngExpression, Map } from "leaflet";
+import { Map } from "leaflet";
 
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
@@ -38,6 +38,8 @@ const PoliticalResults: React.FC = () => {
   const [political, setPolitical] = useState("");
   const [politicalType, setPoliticalType] = useState("");
   const [year, setYear] = useState("");
+
+  const [votesInfo, setVotesInfo] = useState([]);
 
   const zipUrl: string = useMemo(
     () => (zipCountyUrl[county] ? zipCountyUrl[county] : null),
@@ -108,10 +110,6 @@ const PoliticalResults: React.FC = () => {
 
     mutateVotes();
   };
-
-  // const position: LatLngExpression = [-19.912998, -43.940933]; // BH
-  const position: LatLngExpression = [-22.8139134, -43.3399108]; // RJ
-  // const position: LatLngExpression = [-23.533773, -46.62529]; // SP
 
   const shouldRenderMap = useMemo(
     () =>
@@ -202,7 +200,6 @@ const PoliticalResults: React.FC = () => {
       </Grid>
       <Grid item key="map-container" xs={12}>
         <MapContainer
-          center={position}
           zoom={12}
           zoomAnimation={true}
           fadeAnimation={true}
@@ -213,10 +210,38 @@ const PoliticalResults: React.FC = () => {
         >
           {isLoadingVotes && <CircularProgress sx={{ mt: "40%" }} size={80} />}
           {shouldRenderMap && (
-            <Shapefile zipUrl={zipUrl} politicalData={politicalVotes} />
+            <Shapefile
+              setVotesInfo={setVotesInfo}
+              zipUrl={zipUrl}
+              politicalData={politicalVotes}
+            />
           )}
         </MapContainer>
       </Grid>
+      <div>
+        <br />
+        total votos contabilizados: {politicalVotes?.total_political_votes}
+        <br />
+        total votos exibidos:
+        {votesInfo.reduce((accumulator, currentValue) => {
+          if (currentValue.foundMap) {
+            return accumulator + currentValue.total_votes;
+          }
+          return accumulator;
+        }, 0)}
+        <table>
+          {votesInfo.map(
+            (eachVotes) =>
+              !eachVotes.foundMap && (
+                <tr>
+                  <th>{eachVotes.neighborhood}</th>
+                  <th>{eachVotes.total_votes}</th>
+                  <th>{eachVotes.ruesp}</th>
+                </tr>
+              ),
+          )}
+        </table>
+      </div>
     </Grid>
   );
 };

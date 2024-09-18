@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.bf106445.css",
-    "main.js": "/static/js/main.7bae42e7.js",
+    "main.css": "/static/css/main.782ace24.css",
+    "main.js": "/static/js/main.2e753d4a.js",
     "static/media/logo.svg": "/static/media/logo.390c734133492c61530ebc1a00c6aaad.svg",
     "static/media/rio_de_janeiro.zip": "/static/media/rio_de_janeiro.961460a3a831233c4d78.zip",
     "static/media/porto_alegre.zip": "/static/media/porto_alegre.dbdd9b40aa3d02477151.zip",
@@ -14,11 +14,11 @@
     "static/media/fortaleza.zip": "/static/media/fortaleza.573d0dc789b79a3b6e5b.zip",
     "static/media/belem.zip": "/static/media/belem.b0e2a99a09d0d2a32977.zip",
     "index.html": "/index.html",
-    "main.bf106445.css.map": "/static/css/main.bf106445.css.map",
-    "main.7bae42e7.js.map": "/static/js/main.7bae42e7.js.map"
+    "main.782ace24.css.map": "/static/css/main.782ace24.css.map",
+    "main.2e753d4a.js.map": "/static/js/main.2e753d4a.js.map"
   },
   "entrypoints": [
-    "static/css/main.bf106445.css",
-    "static/js/main.7bae42e7.js"
+    "static/css/main.782ace24.css",
+    "static/js/main.2e753d4a.js"
   ]
 }

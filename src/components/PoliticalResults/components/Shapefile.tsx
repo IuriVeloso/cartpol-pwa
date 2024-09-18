@@ -8,13 +8,19 @@ import { normalize } from "../../../utils/normalizer";
 const Shapefile: React.FC<{
   zipUrl: string;
   politicalData: PoliticalVotes;
-}> = ({ zipUrl, politicalData }) => {
+  setVotesInfo: (value: []) => void;
+}> = ({ zipUrl, politicalData, setVotesInfo }) => {
   const { map } = useLeafletContext();
   L.control.attribution({ prefix: "CartPol" }).addTo(map);
 
   useEffect(() => {
     const { votes_by_neighborhood, min_rcan_uesp, max_rcan_uesp } =
       politicalData;
+
+    const foundNeighborhoods = votes_by_neighborhood.map((eachVotes) => ({
+      ...eachVotes,
+      foundMap: false,
+    }));
 
     const geo = L.geoJson(
       { type: "Feature" },
@@ -25,15 +31,42 @@ const Shapefile: React.FC<{
             for (const key in f.properties) {
               out.push(key + ": " + f.properties[key]);
             }
+
+            const name_subdistrict =
+              f.properties.name_neigh ||
+              f.properties.name_subdi ||
+              f.properties.name_distr;
+
+            const neighborhoodIndex = foundNeighborhoods.findIndex(
+              (eachData) =>
+                eachData.neighborhood.length &&
+                eachData.neighborhood === name_subdistrict,
+            );
+            if (neighborhoodIndex !== -1) {
+              foundNeighborhoods[neighborhoodIndex].foundMap = true;
+              const neighborhood = foundNeighborhoods[neighborhoodIndex];
+              l.bindTooltip(
+                `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}<br />RCAN_UESP ${neighborhood?.rcan_uesp}<br />RUESP ${neighborhood?.ruesp}`,
+              );
+            } else {
+              l.bindTooltip(`Bairro ${f.properties.name_neigh} <br/>Votos 0`);
+            }
+
+            setVotesInfo(foundNeighborhoods);
+
             l.bindPopup(out.join("<br />"));
           }
         },
         bubblingMouseEvents: false,
         style: function (feature) {
           if (Boolean(votes_by_neighborhood.length)) {
+            const name_subdistrict =
+              feature.properties.name_neigh ||
+              feature.properties.name_subdi ||
+              feature.properties.name_distr;
+
             const neighborhood = votes_by_neighborhood.find(
-              (eachData) =>
-                eachData.neighborhood === feature.properties.name_neigh,
+              (eachData) => eachData.neighborhood === name_subdistrict,
             );
 
             if (Boolean(neighborhood?.total_votes)) {
@@ -50,29 +83,13 @@ const Shapefile: React.FC<{
           return { fillOpacity: 0, fillColor: "#100069", weight: 1 };
         },
       },
-    )
-      .bindTooltip((e) => {
-        if (!Boolean(votes_by_neighborhood.length)) {
-          return `Bairro ${e.feature.properties.name_neigh}`;
-        }
-
-        const neighborhood = votes_by_neighborhood.find(
-          (eachData) =>
-            eachData.neighborhood === e.feature.properties.name_neigh,
-        );
-
-        if (Boolean(neighborhood)) {
-          return `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}<br />RCAN_UESP ${neighborhood?.rcan_uesp}<br />RUESP ${neighborhood?.ruesp}`;
-        }
-
-        return `Bairro ${e.feature.properties.name_neigh} <br/>Votos 0`;
-      })
-      .addTo(map);
+    ).addTo(map);
 
     shp(zipUrl).then((data) => {
-      geo.addData(data as FeatureCollectionWithFilename);
+      const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
+      map.fitBounds(geoJSON.getBounds());
     });
-  }, [map, zipUrl, politicalData]);
+  }, [map, zipUrl, politicalData, setVotesInfo]);
 
   return null;
 };
