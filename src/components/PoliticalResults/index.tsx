@@ -124,17 +124,11 @@ const PoliticalResults: React.FC = () => {
     <Grid
       key="base-results"
       className="base-results"
-      xs
+      xs={12}
       container
       rowSpacing={3}
     >
-      <Grid
-        className="results-screen"
-        key="results-screen"
-        xs={12}
-        container
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      >
+      <Grid className="results-screen" key="results-screen" xs={12} container>
         <Grid xs={3}>
           <Item>
             <SelectValues
@@ -220,7 +214,7 @@ const PoliticalResults: React.FC = () => {
           )}
         </MapContainer>
       </Grid>
-      <div>
+      {/* <div>
         <br />
         total votos contabilizados: {politicalVotes?.total_political_votes}
         <br />
@@ -243,7 +237,7 @@ const PoliticalResults: React.FC = () => {
               ),
           )}
         </table>
-      </div>
+      </div> */}
     </Grid>
   );
 };

@@ -1,9 +1,13 @@
 .footer-container{
-	display: block;
-	width: 100%;
+	display: flex;
+	width: calc(100% - 144px);
+	margin-top: auto;
+	margin-bottom: 16px;
 }
 
 .footer-logos{
 	margin: 16px;
-	width: 20%;
+	max-width: 360px;
+	min-width: 240px;
+	width: 40%;
 }
