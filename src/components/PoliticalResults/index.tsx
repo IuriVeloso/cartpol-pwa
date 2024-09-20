@@ -211,7 +211,7 @@ const PoliticalResults: React.FC = () => {
           fadeAnimation={true}
           style={{ height: "50vh" }}
           ref={mapRef}
-          key={political}
+          key={political?.name}
           attributionControl={false}
           zoomDelta={0.5}
           zoomSnap={0.5}
