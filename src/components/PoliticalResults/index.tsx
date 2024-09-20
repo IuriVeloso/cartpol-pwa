@@ -16,7 +16,7 @@ import {
   useGetYears,
 } from "../../hooks/index";
 
-import { Political, County } from "../../api/types";
+import { Political, County, PoliticalTypes, State } from "../../api/types";
 
 import Shapefile from "./components/Shapefile";
 import SelectValues from "./components/SelectValues";
@@ -33,16 +33,16 @@ const Item = styled(Paper)(({ theme }) => ({
 const PoliticalResults: React.FC = () => {
   const mapRef: LegacyRef<Map> = useRef(null);
 
-  const [state, setState] = useState("");
-  const [county, setCounty] = useState("");
-  const [political, setPolitical] = useState("");
-  const [politicalType, setPoliticalType] = useState("");
-  const [year, setYear] = useState("");
+  const [state, setState] = useState(null);
+  const [county, setCounty] = useState(null);
+  const [political, setPolitical] = useState(null);
+  const [politicalType, setPoliticalType] = useState(null);
+  const [year, setYear] = useState(null);
 
-  const [votesInfo, setVotesInfo] = useState([]);
+  const [_votesInfo, setVotesInfo] = useState([]);
 
   const zipUrl: string = useMemo(
-    () => (zipCountyUrl[county] ? zipCountyUrl[county] : null),
+    () => (county && zipCountyUrl[county.id] ? zipCountyUrl[county.id] : null),
     [county],
   );
 
@@ -73,40 +73,46 @@ const PoliticalResults: React.FC = () => {
     mutate: mutateVotes,
   } = useGetVotes(political);
 
-  const handleChangeYear = (event: SelectChangeEvent) => {
+  const handleChangeYear = (event: SelectChangeEvent, value: any) => {
     event.preventDefault();
-    setYear(event.target.value as string);
+    setYear(value);
     mutatePoliticalTypes();
-    setPoliticalType("");
-    setPolitical("");
+    setPoliticalType(null);
+    setPolitical(null);
   };
 
-  const handleChangeState = (event: SelectChangeEvent) => {
+  const handleChangeState = (event: SelectChangeEvent, value: State) => {
     event.preventDefault();
-    setState(event.target.value as string);
+    setState(value);
     mutateCounties();
-    setCounty("");
-    setPolitical("");
+    setCounty(null);
+    setPolitical(null);
   };
 
-  const handleChangeCounty = (event: SelectChangeEvent) => {
+  const handleChangeCounty = (event: SelectChangeEvent, value: County) => {
     event.preventDefault();
-    setCounty(event.target.value as string);
+    setCounty(value);
     mutatePoliticals();
-    setPolitical("");
+    setPolitical(null);
   };
 
-  const handleChangePoliticalType = (event: SelectChangeEvent) => {
+  const handleChangePoliticalType = (
+    event: SelectChangeEvent,
+    value: PoliticalTypes,
+  ) => {
     event.preventDefault();
-    setPoliticalType(event.target.value as string);
+    setPoliticalType(value);
     mutatePoliticals();
-    setPolitical("");
+    setPolitical(null);
   };
 
-  const handleChangePolitical = (event: SelectChangeEvent) => {
+  const handleChangePolitical = (
+    event: SelectChangeEvent,
+    value: Political,
+  ) => {
     event.preventDefault();
 
-    setPolitical(event.target.value);
+    setPolitical(value);
 
     mutateVotes();
   };
@@ -119,6 +125,13 @@ const PoliticalResults: React.FC = () => {
       Boolean(political),
     [zipUrl, isLoadingVotes, politicalVotes, political],
   );
+
+  console.log({
+    zipUrl: Boolean(zipUrl),
+    isLoadingVotes: !isLoadingVotes,
+    politicalVotes: politicalVotes,
+    political: Boolean(political),
+  });
 
   return (
     <Grid

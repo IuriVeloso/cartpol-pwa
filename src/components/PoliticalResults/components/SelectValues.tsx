@@ -1,9 +1,10 @@
 import React from "react";
 
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import CircularProgress from "@mui/material/CircularProgress";
-import { FormControl, InputLabel } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+
+import { FormControl } from "@mui/material";
 
 import { State } from "../../../api/states/types";
 import { County } from "../../../api/counties/types";
@@ -21,7 +22,7 @@ interface SelectValuesInterface {
 }
 
 const SelectValues: React.FC<SelectValuesInterface> = ({
-  values,
+  values = [],
   onChange,
   isLoading,
   value,
@@ -31,21 +32,16 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
 }) => {
   return (
     <FormControl sx={{ minWidth: "100%" }} disabled={disabled}>
-      <InputLabel>{label}</InputLabel>
-      <Select
-        labelId="select-states"
-        id="select-states"
+      <Autocomplete
+        disablePortal
+        disabled={disabled}
         value={value}
+        options={values}
         onChange={onChange}
-        label={label}
-      >
-        {isLoading && <CircularProgress />}
-        {values?.map((eachState) => (
-          <MenuItem key={eachState.id} value={eachState.id}>
-            {eachState[param]}
-          </MenuItem>
-        ))}
-      </Select>
+        loadig={isLoading}
+        getOptionLabel={(opt) => opt[param]}
+        renderInput={(params) => <TextField {...params} label={label} />}
+      />
     </FormControl>
   );
 };

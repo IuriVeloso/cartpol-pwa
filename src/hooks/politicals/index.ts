@@ -5,9 +5,17 @@ import {
   getPoliticalTypes,
   getVotes,
 } from "../../api/politicals";
+import { County, Political, PoliticalTypes } from "../../api/types";
+import { Election } from "../../api/time/types";
 
-const useGetPoliticals = (county_id: string, political_type) => {
-  const queryParams = { county_id, political_type };
+const useGetPoliticals = (
+  county: County | null,
+  political_type: PoliticalTypes | null,
+) => {
+  const queryParams = {
+    county_id: county == null ? null : `${county.id}`,
+    political_type: political_type == null ? "" : `${political_type.id}`,
+  };
 
   return useMutation({
     mutationKey: ["politicals"],
@@ -15,15 +23,16 @@ const useGetPoliticals = (county_id: string, political_type) => {
   });
 };
 
-const useGetVotes = (political_id: string) => {
+const useGetVotes = (political: Political | null) => {
   return useMutation({
     mutationKey: ["politicals", "votes"],
-    mutationFn: () => getVotes(political_id),
+    mutationFn: () => getVotes(political == null ? "" : `${political.id}`),
+    initialData: [],
   });
 };
 
-const useGetPoliticalTypes = (election_id: string) => {
-  const queryParams = { election: election_id };
+const useGetPoliticalTypes = (election: Election | null) => {
+  const queryParams = { election: election == null ? "" : `${election.id}` };
 
   return useMutation({
     mutationKey: ["politicals", "types"],
