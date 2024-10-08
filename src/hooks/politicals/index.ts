@@ -11,10 +11,12 @@ import { Election } from "../../api/time/types";
 const useGetPoliticals = (
   county: County | null,
   political_type: PoliticalTypes | null,
+  election: Election | null,
 ) => {
   const queryParams = {
     county_id: county == null ? null : `${county.id}`,
     political_type: political_type == null ? "" : `${political_type.id}`,
+    year: election == null ? "" : `${election.year}`,
   };
 
   return useMutation({

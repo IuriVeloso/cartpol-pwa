@@ -13,7 +13,7 @@ const Shapefile: React.FC<{
   const { map } = useLeafletContext();
 
   useEffect(() => {
-    const { votes_by_neighborhood, min_rcan_uesp, max_rcan_uesp } =
+    const { votes_by_neighborhood, min_ruesp_can, max_ruesp_can } =
       politicalData;
 
     const foundNeighborhoods = votes_by_neighborhood.map((eachVotes) => ({
@@ -25,12 +25,7 @@ const Shapefile: React.FC<{
       { type: "Feature" },
       {
         onEachFeature: function popUp(f, l) {
-          const out = [];
           if (f.properties) {
-            for (const key in f.properties) {
-              out.push(key + ": " + f.properties[key]);
-            }
-
             const name_subdistrict =
               f.properties.name_neigh ||
               f.properties.name_subdi ||
@@ -44,16 +39,17 @@ const Shapefile: React.FC<{
             if (neighborhoodIndex !== -1) {
               foundNeighborhoods[neighborhoodIndex].foundMap = true;
               const neighborhood = foundNeighborhoods[neighborhoodIndex];
-              l.bindTooltip(
-                `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}<br />RCAN_UESP ${neighborhood?.rcan_uesp}<br />RUESP ${neighborhood?.ruesp}`,
-              );
+
+              const mapText = `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}<br />RCAN_UESP ${neighborhood?.rcan_uesp}<br />RUESP ${neighborhood?.ruesp}`;
+
+              l.bindTooltip(mapText);
+              l.bindPopup(mapText);
             } else {
               l.bindTooltip(`Bairro ${f.properties.name_neigh} <br/>Votos 0`);
+              l.bindPopup(`Bairro ${f.properties.name_neigh} <br/>Votos 0`);
             }
 
             setVotesInfo(foundNeighborhoods);
-
-            l.bindPopup(out.join("<br />"));
           }
         },
         bubblingMouseEvents: false,
@@ -71,11 +67,12 @@ const Shapefile: React.FC<{
             if (Boolean(neighborhood?.total_votes)) {
               return {
                 fillOpacity: normalize(
-                  neighborhood?.rcan_uesp,
-                  min_rcan_uesp,
-                  max_rcan_uesp,
+                  neighborhood?.ruesp_can,
+                  min_ruesp_can,
+                  max_ruesp_can,
                 ),
                 fillColor: "#100069",
+                weight: 1,
               };
             }
           }
