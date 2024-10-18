@@ -39,7 +39,7 @@ const PoliticalResults: React.FC = () => {
   const [politicalType, setPoliticalType] = useState(null);
   const [year, setYear] = useState(null);
 
-  const [_votesInfo, setVotesInfo] = useState([]);
+  const [votesInfo, setVotesInfo] = useState([]);
 
   const zipUrl: string = useMemo(
     () => (county && zipCountyUrl[county.id] ? zipCountyUrl[county.id] : null),
@@ -57,7 +57,7 @@ const PoliticalResults: React.FC = () => {
     data: searchPoliticals,
     isPending: isLoadingPolitical,
     mutate: mutatePoliticals,
-  } = useGetPoliticals(county, politicalType);
+  } = useGetPoliticals(county, politicalType, year);
 
   const {
     data: searchPoliticalTypes,
@@ -125,13 +125,6 @@ const PoliticalResults: React.FC = () => {
       Boolean(political),
     [zipUrl, isLoadingVotes, politicalVotes, political],
   );
-
-  console.log({
-    zipUrl: Boolean(zipUrl),
-    isLoadingVotes: !isLoadingVotes,
-    politicalVotes: politicalVotes,
-    political: Boolean(political),
-  });
 
   return (
     <Grid

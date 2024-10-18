@@ -9,6 +9,32 @@ import zipRioDeJaneiroUrl from "./county/rio_de_janeiro.zip";
 import zipSalvadorUrl from "./county/salvador.zip";
 import zipSaoPauloUrl from "./county/sao_paulo.zip";
 
+import zipAngraDosReisUrl from "./county/Angra Dos Reis.zip";
+import zipBarrDoPiraiUrl from "./county/Barra Do Piraí.zip";
+import zipBarraMansaUrl from "./county/Barra Do Piraí.zip";
+import zipBelfordRoxoUrl from "./county/Barra Do Piraí.zip";
+import zipBomJesusDoItabapoanaUrl from "./county/Bom Jesus Do Itabapoana.zip";
+import zipCamposDosGoytacazesUrl from "./county/Campos Dos Goytacazes.zip";
+import zipDuqueDeCaxiasUrl from "./county/Duque De Caxias.zip";
+import zipIguabaGrandeUrl from "./county/Iguaba Grande.zip";
+import zipItaboraiUrl from "./county/Itaboraí.zip";
+import zipJaperiUrl from "./county/Japeri.zip";
+import zipMacaeUrl from "./county/Macaé.zip";
+import zipMendesUrl from "./county/Mendes.zip";
+import zipNilopolisUrl from "./county/Nilópolis.zip";
+import zipNiteroiUrl from "./county/Niterói.zip";
+import zipNovaIguacu from "./county/Nova Iguaçu.zip";
+import zipQuatisUrl from "./county/Quatis.zip";
+import zipQueimadosUrl from "./county/Queimados.zip";
+import zipResendeUrl from "./county/Resende.zip";
+import zipSaoGoncaloUrl from "./county/São Gonçalo.zip";
+import zipSaoJoaoDeMeritiUrl from "./county/São João De Meriti.zip";
+import zipSaoPedroDaAldeiraUrl from "./county/São Pedro Da Aldeia.zip";
+import zipSaquaremaUrl from "./county/Saquarema.zip";
+import zipTanguaUrl from "./county/Tanguá.zip";
+import zipTeresopolisUrl from "./county/Teresópolis.zip";
+import zipVoltaRedondaUrl from "./county/Volta Redonda.zip";
+
 // import zipProdBelemUrl from "/build/static/media/belem.b0e2a99a09d0d2a32977.zip";
 // import zipProdBeloHorizonteUrl from "/build/static/media/belo_horizonte.f1c971592e40880f2455.zip";
 // import zipProdCuritibaUrl from "/build/static/media/curitiba.6a012270e1d979c0afea.zip";
@@ -44,4 +70,29 @@ export const zipCountyUrl = {
   2: zipRioDeJaneiroUrl,
   7: zipSalvadorUrl,
   3: zipSaoPauloUrl,
+  15: zipAngraDosReisUrl,
+  78: zipBarrDoPiraiUrl,
+  13: zipBarraMansaUrl,
+  30: zipBelfordRoxoUrl,
+  36: zipBomJesusDoItabapoanaUrl,
+  20: zipCamposDosGoytacazesUrl,
+  16: zipDuqueDeCaxiasUrl,
+  74: zipIguabaGrandeUrl,
+  14: zipItaboraiUrl,
+  47: zipJaperiUrl,
+  12: zipMacaeUrl,
+  23: zipMendesUrl,
+  56: zipNilopolisUrl,
+  40: zipNiteroiUrl,
+  33: zipNovaIguacu,
+  81: zipQuatisUrl,
+  51: zipQueimadosUrl,
+  38: zipResendeUrl,
+  21: zipSaoGoncaloUrl,
+  17: zipSaoJoaoDeMeritiUrl,
+  22: zipSaoPedroDaAldeiraUrl,
+  46: zipSaquaremaUrl,
+  80: zipTanguaUrl,
+  48: zipTeresopolisUrl,
+  41: zipVoltaRedondaUrl,
 };

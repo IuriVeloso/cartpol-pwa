@@ -40,7 +40,7 @@ const Shapefile: React.FC<{
               foundNeighborhoods[neighborhoodIndex].foundMap = true;
               const neighborhood = foundNeighborhoods[neighborhoodIndex];
 
-              const mapText = `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />RUESP_CAN ${neighborhood?.ruesp_can}<br />RCAN_UESP ${neighborhood?.rcan_uesp}<br />RUESP ${neighborhood?.ruesp}`;
+              const mapText = `Bairro ${neighborhood?.neighborhood} <br/>Votos ${(Math.round(neighborhood?.total_votes * 100) / 100).toFixed(2)}<br />% do candidato: ${(Math.round(neighborhood?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do bairro: ${(Math.round(neighborhood?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do bairro na cidade ${(Math.round(neighborhood?.ruesp * 10000) / 100).toFixed(2)}`;
 
               l.bindTooltip(mapText);
               l.bindPopup(mapText);
