@@ -220,7 +220,7 @@ const PoliticalResults: React.FC = () => {
           )}
         </MapContainer>
       </Grid>
-      {/* <div>
+      <div>
         <br />
         total votos contabilizados: {politicalVotes?.total_political_votes}
         <br />
@@ -243,7 +243,7 @@ const PoliticalResults: React.FC = () => {
               ),
           )}
         </table>
-      </div> */}
+      </div>
     </Grid>
   );
 };

@@ -1,24 +1,47 @@
 {
   "files": {
     "main.css": "/static/css/main.e3586e4b.css",
-    "main.js": "/static/js/main.1fa6f936.js",
+    "main.js": "/static/js/main.844c6c41.js",
     "static/media/logo.svg": "/static/media/logo.390c734133492c61530ebc1a00c6aaad.svg",
     "static/media/rio_de_janeiro.zip": "/static/media/rio_de_janeiro.961460a3a831233c4d78.zip",
     "static/media/belo_horizonte.zip": "/static/media/belo_horizonte.8d243d96b388231701ab.zip",
     "static/media/porto_alegre.zip": "/static/media/porto_alegre.dbdd9b40aa3d02477151.zip",
     "static/media/sao_paulo.zip": "/static/media/sao_paulo.cb7acf26706c69d6538b.zip",
+    "static/media/São Gonçalo.zip": "/static/media/São Gonçalo.915eba611ac26096d73a.zip",
+    "static/media/Angra Dos Reis.zip": "/static/media/Angra Dos Reis.b59a6213a27d155446d1.zip",
     "static/media/curitiba.zip": "/static/media/curitiba.6a012270e1d979c0afea.zip",
     "static/media/manaus.zip": "/static/media/manaus.87ca7e85881255a55656.zip",
     "static/media/salvador.zip": "/static/media/salvador.4a67077d2ffbeb33fc92.zip",
     "static/media/recife.zip": "/static/media/recife.074ba9ca36e91e0dacdd.zip",
     "static/media/fortaleza.zip": "/static/media/fortaleza.366dfa707d4b6aa83bbc.zip",
+    "static/media/Itaboraí.zip": "/static/media/Itaboraí.bf29e6881a94449516b3.zip",
+    "static/media/Nova Iguaçu.zip": "/static/media/Nova Iguaçu.08ced39decef433f0a56.zip",
+    "static/media/Niterói.zip": "/static/media/Niterói.e5719c0d2ba95ebb0bd7.zip",
+    "static/media/Duque De Caxias.zip": "/static/media/Duque De Caxias.23bc5cfd3898ccfc29ed.zip",
+    "static/media/Volta Redonda.zip": "/static/media/Volta Redonda.f84f523d3556d308ba78.zip",
+    "static/media/Teresópolis.zip": "/static/media/Teresópolis.da99bfa1ef870f9beb41.zip",
+    "static/media/Saquarema.zip": "/static/media/Saquarema.1791a99fe08a24ca81e5.zip",
+    "static/media/São Pedro Da Aldeia.zip": "/static/media/São Pedro Da Aldeia.cf3bab487fdeaebb3c40.zip",
+    "static/media/Japeri.zip": "/static/media/Japeri.9fe7be957b46c2c02cad.zip",
+    "static/media/Macaé.zip": "/static/media/Macaé.6c2a156e4b14c330c1db.zip",
+    "static/media/Campos Dos Goytacazes.zip": "/static/media/Campos Dos Goytacazes.ad152f29be0476267d45.zip",
+    "static/media/Resende.zip": "/static/media/Resende.d10a6cfa6e7f2fbd2618.zip",
+    "static/media/Iguaba Grande.zip": "/static/media/Iguaba Grande.06784ab3a009dac532e6.zip",
+    "static/media/Barra Do Piraí.zip": "/static/media/Barra Do Piraí.88724a2c3d484be16067.zip",
+    "static/media/São João De Meriti.zip": "/static/media/São João De Meriti.921c2bda363cb5000613.zip",
+    "static/media/Tanguá.zip": "/static/media/Tanguá.4ae5ad9478da17245676.zip",
+    "static/media/Queimados.zip": "/static/media/Queimados.28e26d1cb11dceb9e454.zip",
+    "static/media/Quatis.zip": "/static/media/Quatis.792f017a0f1ee76ae34e.zip",
+    "static/media/Mendes.zip": "/static/media/Mendes.955e1eb6d3f93b2bb8df.zip",
     "static/media/belem.zip": "/static/media/belem.b0e2a99a09d0d2a32977.zip",
+    "static/media/Bom Jesus Do Itabapoana.zip": "/static/media/Bom Jesus Do Itabapoana.088d48919e7909f30531.zip",
+    "static/media/Nilópolis.zip": "/static/media/Nilópolis.5d2ac7086c0822ace49f.zip",
     "index.html": "/index.html",
     "main.e3586e4b.css.map": "/static/css/main.e3586e4b.css.map",
-    "main.1fa6f936.js.map": "/static/js/main.1fa6f936.js.map"
+    "main.844c6c41.js.map": "/static/js/main.844c6c41.js.map"
   },
   "entrypoints": [
     "static/css/main.e3586e4b.css",
-    "static/js/main.1fa6f936.js"
+    "static/js/main.844c6c41.js"
   ]
 }
