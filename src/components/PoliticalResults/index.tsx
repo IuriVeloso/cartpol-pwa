@@ -211,8 +211,10 @@ const PoliticalResults: React.FC = () => {
           zoomSnap={0.5}
           wheelPxPerZoomLevel={120}
         >
-          {true && <CircularProgress sx={{ mt: "120px" }} size={80} />}
-          {false && (
+          {isLoadingVotes && (
+            <CircularProgress sx={{ mt: "120px" }} size={80} />
+          )}
+          {shouldRenderMap && (
             <Shapefile
               setVotesInfo={setVotesInfo}
               zipUrl={zipUrl}
