@@ -46,7 +46,8 @@ const PoliticalResults: React.FC = () => {
     [county],
   );
 
-  const { data: allStates, isLoading: isLoadingState } = useGetStates();
+  const { data: allStates, isFetching: isLoadingState } = useGetStates();
+
   const {
     data: searchCounties,
     isPending: isLoadingCounty,
@@ -65,7 +66,7 @@ const PoliticalResults: React.FC = () => {
     mutate: mutatePoliticalTypes,
   } = useGetPoliticalTypes(year);
 
-  const { data: searchElections, isPending: isLoadingYears } = useGetYears();
+  const { data: searchElections, isFetching: isLoadingYears } = useGetYears();
 
   const {
     data: politicalVotes,
@@ -210,8 +211,8 @@ const PoliticalResults: React.FC = () => {
           zoomSnap={0.5}
           wheelPxPerZoomLevel={120}
         >
-          {isLoadingVotes && <CircularProgress sx={{ mt: "40%" }} size={80} />}
-          {shouldRenderMap && (
+          {true && <CircularProgress sx={{ mt: "120px" }} size={80} />}
+          {false && (
             <Shapefile
               setVotesInfo={setVotesInfo}
               zipUrl={zipUrl}
@@ -220,7 +221,7 @@ const PoliticalResults: React.FC = () => {
           )}
         </MapContainer>
       </Grid>
-      <div>
+      {/* <div>
         <br />
         total votos contabilizados: {politicalVotes?.total_political_votes}
         <br />
@@ -243,7 +244,7 @@ const PoliticalResults: React.FC = () => {
               ),
           )}
         </table>
-      </div>
+      </div> */}
     </Grid>
   );
 };

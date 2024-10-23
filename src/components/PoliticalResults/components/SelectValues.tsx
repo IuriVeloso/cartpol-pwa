@@ -8,11 +8,11 @@ import { FormControl } from "@mui/material";
 
 import { State } from "../../../api/states/types";
 import { County } from "../../../api/counties/types";
-import { Political } from "../../../api/politicals/types";
+import { Political, PoliticalTypes } from "../../../api/politicals/types";
 import { Election } from "../../../api/time/types";
 
 interface SelectValuesInterface {
-  values: State[] | County[] | Political[] | Election[];
+  values: State[] | County[] | Political[] | Election[] | PoliticalTypes[];
   onChange: (event: SelectChangeEvent) => void;
   isLoading: boolean;
   value: string;
@@ -30,6 +30,8 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   disabled,
   param = "name",
 }) => {
+  console.log({ isLoading, values, value, label });
+
   return (
     <FormControl sx={{ minWidth: "100%" }} disabled={disabled}>
       <Autocomplete
@@ -38,7 +40,8 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
         value={value}
         options={values}
         onChange={onChange}
-        loadig={isLoading}
+        loading={true}
+        loadingText="Carregando..."
         getOptionLabel={(opt) => opt[param]}
         renderInput={(params) => <TextField {...params} label={label} />}
       />
