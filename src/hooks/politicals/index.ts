@@ -4,6 +4,7 @@ import {
   getPoliticals,
   getPoliticalTypes,
   getVotes,
+  generateReport
 } from "../../api/politicals";
 import { County, Political, PoliticalTypes } from "../../api/types";
 import { Election } from "../../api/time/types";
@@ -42,4 +43,13 @@ const useGetPoliticalTypes = (election: Election | null) => {
   });
 };
 
-export { useGetPoliticals, useGetVotes, useGetPoliticalTypes };
+const useGetGenerateReport = (election: Election | null, political: Political | null) => {
+
+  
+  return useMutation({
+    mutationKey: ["politicals", "types"],
+    mutationFn: () => generateReport(election?.year, political?.id),
+  });
+};
+
+export { useGetPoliticals, useGetVotes, useGetPoliticalTypes, useGetGenerateReport };

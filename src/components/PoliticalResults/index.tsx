@@ -1,7 +1,8 @@
 import React, { useState, useRef, LegacyRef, useMemo } from "react";
 import { MapContainer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress, Grid, Paper, styled } from "@mui/material";
+import { CircularProgress, Grid, Paper, styled, Button } from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
 import { Map } from "leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -14,6 +15,7 @@ import {
   useGetStates,
   useGetVotes,
   useGetYears,
+  useGetGenerateReport,
 } from "../../hooks/index";
 
 import { Political, County, PoliticalTypes, State } from "../../api/types";
@@ -53,6 +55,11 @@ const PoliticalResults: React.FC = () => {
     isPending: isLoadingCounty,
     mutate: mutateCounties,
   } = useGetCounties(state);
+
+  const {
+    isPending: isLoadingReport,
+    mutate: mutateGenerateReport,
+  } = useGetGenerateReport(year, political);
 
   const {
     data: searchPoliticals,
@@ -186,7 +193,7 @@ const PoliticalResults: React.FC = () => {
             />
           </Item>
         </Grid>
-        <Grid xs={9}>
+        <Grid xs>
           <Item>
             <SelectValues
               disabled={!Boolean(politicalType)}
@@ -197,6 +204,25 @@ const PoliticalResults: React.FC = () => {
               label="Politico"
             />
           </Item>
+        </Grid>
+        <Grid 
+          item
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          xs="auto">
+            <Button
+              variant="contained" 
+              loading={isLoadingVotes} 
+              disabled={!shouldRenderMap} 
+              endIcon={<DownloadIcon />}
+              onClick={mutateGenerateReport}
+              color="black"
+              >
+              Gerar Relatório
+            </Button>
         </Grid>
       </Grid>
       <Grid item key="map-container" xs={12}>

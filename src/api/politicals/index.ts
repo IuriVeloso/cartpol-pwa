@@ -29,3 +29,13 @@ export const getVotes = async (political_id: string) => {
   const { data }: { data: PoliticalVotes } = await axios.get(url);
   return data;
 };
+
+export const generateReport = async (year:number, political_id: number) => {
+
+  const url = '/report/political-votes/' + year + '/' + political_id;
+
+  await axios.get(url, 
+    {responseType: 'blob'} ).then((response) => {
+      window.open(URL.createObjectURL(response.data));
+    });
+  };
