@@ -26,10 +26,12 @@ const Shapefile: React.FC<{
       {
         onEachFeature: function popUp(f, l) {
           if (f.properties) {
+            
+
             const name_subdistrict =
-              f.properties.name_neigh ||
-              f.properties.name_subdi ||
-              f.properties.name_distr;
+              f.properties.NM_BAIRRO ||
+              f.properties.NM_SUBDIST ||
+              f.properties.NM_DIST;
 
             const neighborhoodIndex = foundNeighborhoods.findIndex(
               (eachData) =>
@@ -56,9 +58,9 @@ const Shapefile: React.FC<{
         style: function (feature) {
           if (Boolean(votes_by_neighborhood.length)) {
             const name_subdistrict =
-              feature.properties.name_neigh ||
-              feature.properties.name_subdi ||
-              feature.properties.name_distr;
+              feature.properties.NM_BAIRRO ||
+              feature.properties.NM_SUBDIST ||
+              feature.properties.NM_DIST;
 
             const neighborhood = votes_by_neighborhood.find(
               (eachData) => eachData.neighborhood === name_subdistrict,

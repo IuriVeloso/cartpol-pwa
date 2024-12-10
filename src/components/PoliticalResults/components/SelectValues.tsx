@@ -30,7 +30,6 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   disabled,
   param = "name",
 }) => {
-  console.log({ isLoading, values, value, label });
 
   return (
     <FormControl sx={{ minWidth: "100%" }} disabled={disabled}>
@@ -40,7 +39,7 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
         value={value}
         options={values}
         onChange={onChange}
-        loading={true}
+        loading={isLoading}
         loadingText="Carregando..."
         getOptionLabel={(opt) => opt[param]}
         renderInput={(params) => <TextField {...params} label={label} />}
