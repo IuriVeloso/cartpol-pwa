@@ -26,10 +26,13 @@ const useGetPoliticals = (
   });
 };
 
-const useGetVotes = (political: Political | null) => {
+const useGetVotes = (political: Political | null, county: County | null,) => {
+  const county_id = county == null ? null : `${county.id}`;
+  const political_id = political == null ? "" : `${political.id}`
+
   return useMutation({
     mutationKey: ["politicals", "votes"],
-    mutationFn: () => getVotes(political == null ? "" : `${political.id}`),
+    mutationFn: () => getVotes(political_id, county_id),
     initialData: [],
   });
 };

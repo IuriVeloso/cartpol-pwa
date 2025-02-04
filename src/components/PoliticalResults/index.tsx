@@ -79,7 +79,7 @@ const PoliticalResults: React.FC = () => {
     data: politicalVotes,
     isPending: isLoadingVotes,
     mutate: mutateVotes,
-  } = useGetVotes(political);
+  } = useGetVotes(political, county);
 
   const handleChangeYear = (event: SelectChangeEvent, value: any) => {
     event.preventDefault();
@@ -249,7 +249,7 @@ const PoliticalResults: React.FC = () => {
           )}
         </MapContainer>
       </Grid>
-      <div>
+      {/* <div>
         <br />
         total votos contabilizados: {politicalVotes?.total_political_votes}
         <br />
@@ -272,7 +272,7 @@ const PoliticalResults: React.FC = () => {
               ),
           )}
         </table>
-      </div>
+      </div> */}
     </Grid>
   );
 };

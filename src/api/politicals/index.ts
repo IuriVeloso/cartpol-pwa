@@ -23,8 +23,11 @@ export const getPoliticalTypes = async (
   return data;
 };
 
-export const getVotes = async (political_id: string) => {
-  const url = "/political-votes/" + political_id;
+export const getVotes = async (political_id: string, county_id: string) => {
+
+  const params = new URLSearchParams({county_id});
+
+  const url = "/political-votes/" + political_id + '?' + params;
 
   const { data }: { data: PoliticalVotes } = await axios.get(url);
   return data;
