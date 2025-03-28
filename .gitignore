@@ -4,13 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
-/maps
 
 # testing
 /coverage
 
 # production
-# /build
+/build
+/dist
 
 # misc
 .DS_Store
@@ -18,8 +18,25 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map

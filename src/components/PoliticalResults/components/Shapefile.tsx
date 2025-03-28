@@ -87,7 +87,7 @@ const Shapefile: React.FC<{
         },
       },
     ).addTo(map);
-
+    console.log("Shapefile useEffect triggered", shp());
     shp(zipUrl).then((data) => {
       const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
       map.fitBounds(geoJSON.getBounds());
