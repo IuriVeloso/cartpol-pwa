@@ -26,7 +26,7 @@ const Shapefile: React.FC<{
       {
         onEachFeature: function popUp(f, l) {
           if (f.properties) {
-            console.log(f.properties)
+
             const name_subdistrict =
               f.properties.NM_BAIRRO ||
               f.properties.NM_SUBDIST ||
@@ -38,7 +38,7 @@ const Shapefile: React.FC<{
             const neighborhoodIndex = foundNeighborhoods.findIndex(
               (eachData) =>
                 eachData.neighborhood.length &&
-                eachData.neighborhood === name_subdistrict,
+                !eachData.neighborhood.localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
             );
             if (neighborhoodIndex !== -1) {
               foundNeighborhoods[neighborhoodIndex].foundMap = true;
@@ -46,12 +46,9 @@ const Shapefile: React.FC<{
 
               const mapText = `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />% do candidato: ${(Math.round(neighborhood?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do bairro: ${(Math.round(neighborhood?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do bairro na cidade ${(Math.round(neighborhood?.ruesp * 10000) / 100).toFixed(2)}`;
 
-              console.log({name_subdistrict})
               l.bindTooltip(mapText);
               l.bindPopup(mapText);
             } else {
-              console.log(neighborhoodIndex, name_subdistrict, f.properties.name_neigh)
-
               l.bindTooltip(`Bairro ${name_subdistrict} <br/>Votos 0`);
               l.bindPopup(`Bairro ${name_subdistrict} <br/>Votos 0`);
             }
@@ -70,8 +67,8 @@ const Shapefile: React.FC<{
               feature.properties.name_subdi || 
               feature.properties.name_distr;
 
-            const neighborhood = votes_by_neighborhood.find(
-              (eachData) => eachData.neighborhood === name_subdistrict,
+              const neighborhood = votes_by_neighborhood.find(
+              (eachData) => !eachData.neighborhood.localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
             );
 
             if (Boolean(neighborhood?.total_votes)) {
