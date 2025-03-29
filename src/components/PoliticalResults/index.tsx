@@ -215,7 +215,7 @@ const PoliticalResults: React.FC = () => {
           xs="auto">
             <Button
               variant="contained" 
-              loading={isLoadingVotes} 
+              loading={isLoadingVotes || isLoadingReport} 
               disabled={!shouldRenderMap} 
               endIcon={<DownloadIcon />}
               onClick={mutateGenerateReport}
