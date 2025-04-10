@@ -24,10 +24,18 @@ export const getPoliticalTypes = async (
 };
 
 export const getVotes = async (political_id: string, county_id: string) => {
-
   const params = new URLSearchParams({county_id});
 
   const url = "/political-votes/" + political_id + '?' + params;
+
+  const { data }: { data: PoliticalVotes } = await axios.get(url);
+  return data;
+};
+
+export const getStateVotes = async (political_id: string, state_id: string) => {
+  const params = new URLSearchParams({state_id});
+
+  const url = "/political-votes/state/" + political_id + '?' + params;
 
   const { data }: { data: PoliticalVotes } = await axios.get(url);
   return data;

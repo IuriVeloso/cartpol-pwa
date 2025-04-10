@@ -35,6 +35,9 @@ import zipTanguaUrl from "./county/Tanguá.zip";
 import zipTeresopolisUrl from "./county/Teresópolis.zip";
 // import zipVoltaRedondaUrl from "./county/Volta Redonda.zip";
 
+import zipRioDeJaneiroStateUrl from "./state/RJ_Municipios_2022.zip";
+import zipSaoPauloStateUrl from "./state/SP_Municipios_2022.zip";
+
 // import zipProdBelemUrl from "/build/static/media/belem.b0e2a99a09d0d2a32977.zip";
 // import zipProdBeloHorizonteUrl from "/build/static/media/belo_horizonte.f1c971592e40880f2455.zip";
 // import zipProdCuritibaUrl from "/build/static/media/curitiba.6a012270e1d979c0afea.zip";
@@ -96,3 +99,8 @@ export const zipCountyUrl = {
   48: zipTeresopolisUrl,
   // 41: zipVoltaRedondaUrl,
 };
+
+export const zipStateUrl = {
+  3: zipSaoPauloStateUrl,
+  2: zipRioDeJaneiroStateUrl,
+};  

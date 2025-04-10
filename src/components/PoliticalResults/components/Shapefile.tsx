@@ -7,16 +7,27 @@ import { normalize } from "../../../utils/normalizer";
 
 const Shapefile: React.FC<{
   zipUrl: string;
-  politicalData: PoliticalVotes;
+  zipUrlState: string;
+  politicalData: PoliticalVotes | undefined;
+  stateData: PoliticalVotes | undefined;
   setVotesInfo: (value: []) => void;
-}> = ({ zipUrl, politicalData, setVotesInfo }) => {
+}> = ({ zipUrl: zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo }) => {
   const { map } = useLeafletContext();
 
   useEffect(() => {
-    const { votes_by_neighborhood, min_ruesp_can, max_ruesp_can } =
-      politicalData;
 
-    const foundNeighborhoods = votes_by_neighborhood.map((eachVotes) => ({
+    const voteData = politicalData || stateData;
+    const zipUrl = zipUrlCounty || zipUrlState;
+    const isState = Boolean(zipUrlState) && Boolean(stateData);
+    const localKey = isState ? "county" : "neighborhood";
+
+    if(!voteData || !zipUrl) {
+      return;
+    }
+
+    const { votes, min_ruesp_can, max_ruesp_can } = voteData;
+
+    const foundLocals = votes.map((eachVotes) => ({
       ...eachVotes,
       foundMap: false,
     }));
@@ -26,25 +37,25 @@ const Shapefile: React.FC<{
       {
         onEachFeature: function popUp(f, l) {
           if (f.properties) {
-
             const name_subdistrict =
               f.properties.NM_BAIRRO ||
               f.properties.NM_SUBDIST ||
               f.properties.NM_DIST || 
               f.properties.name_neigh || 
               f.properties.name_subdi || 
-              f.properties.name_distr;
-
-            const neighborhoodIndex = foundNeighborhoods.findIndex(
+              f.properties.name_distr ||
+              f.properties.NM_MUN;
+            
+            const localIndex = foundLocals.findIndex(
               (eachData) =>
-                eachData.neighborhood.length &&
-                !eachData.neighborhood.localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
+                eachData[localKey].length &&
+                !eachData[localKey].localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
             );
-            if (neighborhoodIndex !== -1) {
-              foundNeighborhoods[neighborhoodIndex].foundMap = true;
-              const neighborhood = foundNeighborhoods[neighborhoodIndex];
+            if (localIndex !== -1) {
+              foundLocals[localIndex].foundMap = true;
+              const local = foundLocals[localIndex];
 
-              const mapText = `Bairro ${neighborhood?.neighborhood} <br/>Votos ${neighborhood?.total_votes}<br />% do candidato: ${(Math.round(neighborhood?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do bairro: ${(Math.round(neighborhood?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do bairro na cidade ${(Math.round(neighborhood?.ruesp * 10000) / 100).toFixed(2)}`;
+              const mapText = `Bairro ${local?.[localKey]} <br/>Votos ${local?.total_votes}<br />% do candidato: ${(Math.round(local?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do bairro: ${(Math.round(local?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do bairro na cidade ${(Math.round(local?.ruesp * 10000) / 100).toFixed(2)}`;
 
               l.bindTooltip(mapText);
               l.bindPopup(mapText);
@@ -53,28 +64,29 @@ const Shapefile: React.FC<{
               l.bindPopup(`Bairro ${name_subdistrict} <br/>Votos 0`);
             }
 
-            setVotesInfo(foundNeighborhoods);
+            setVotesInfo(foundLocals);
           }
         },
         bubblingMouseEvents: false,
         style: function (feature) {
-          if (Boolean(votes_by_neighborhood.length)) {
+          if (Boolean(votes.length)) {
             const name_subdistrict =
               feature.properties.NM_BAIRRO ||
               feature.properties.NM_SUBDIST ||
               feature.properties.NM_DIST|| 
               feature.properties.name_neigh || 
               feature.properties.name_subdi || 
-              feature.properties.name_distr;
+              feature.properties.name_distr ||
+              feature.properties.NM_MUN;
 
-              const neighborhood = votes_by_neighborhood.find(
-              (eachData) => !eachData.neighborhood.localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
+              const local = votes.find(
+              (eachData) => !eachData[localKey].localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
             );
 
-            if (Boolean(neighborhood?.total_votes)) {
+            if (Boolean(local?.total_votes)) {
               return {
                 fillOpacity: normalize(
-                  neighborhood?.ruesp_can,
+                  local?.ruesp_can,
                   min_ruesp_can,
                   max_ruesp_can,
                 ),
@@ -87,13 +99,13 @@ const Shapefile: React.FC<{
         },
       },
     ).addTo(map);
-    console.log("Shapefile useEffect triggered", shp());
+
     shp(zipUrl).then((data) => {
       const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
       map.fitBounds(geoJSON.getBounds());
       L.control.attribution({ prefix: "CartPol" }).addTo(map);
     });
-  }, [map, zipUrl, politicalData, setVotesInfo]);
+  }, [map, zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo]);
 
   return null;
 };

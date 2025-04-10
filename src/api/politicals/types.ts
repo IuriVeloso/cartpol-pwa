@@ -11,7 +11,7 @@ export type Political = {
 };
 
 export type PoliticalVotes = {
-  votes_by_neighborhood: Array<VotesNeighborhood>;
+  votes: Array<VotesNeighborhood>;
   min_ruesp_can: number;
   max_ruesp_can: number;
   min_rcan_uesp: number;

@@ -1,7 +1,9 @@
 {
   "files": {
     "main.css": "https://cartpol.lappcom.com.br/static/css/main.e3586e4b.css",
-    "main.js": "https://cartpol.lappcom.com.br/static/js/main.831a6608.js",
+    "main.js": "https://cartpol.lappcom.com.br/static/js/main.2a6e0756.js",
+    "static/media/SP_Municipios_2022.zip": "https://cartpol.lappcom.com.br/static/media/SP_Municipios_2022.7a5c74649a42a8a519c1.zip",
+    "static/media/RJ_Municipios_2022.zip": "https://cartpol.lappcom.com.br/static/media/RJ_Municipios_2022.21f793b3a3ca72e9e9da.zip",
     "static/media/Rio de Janeiro.zip": "https://cartpol.lappcom.com.br/static/media/Rio de Janeiro.b346becb8d2e3f7f1e7f.zip",
     "static/media/logo.svg": "https://cartpol.lappcom.com.br/static/media/logo.390c734133492c61530ebc1a00c6aaad.svg",
     "static/media/Angra dos Reis.zip": "https://cartpol.lappcom.com.br/static/media/Angra dos Reis.aaeebbc457f8807ef934.zip",
@@ -37,10 +39,10 @@
     "static/media/belem.zip": "https://cartpol.lappcom.com.br/static/media/belem.b0e2a99a09d0d2a32977.zip",
     "index.html": "https://cartpol.lappcom.com.br/index.html",
     "main.e3586e4b.css.map": "https://cartpol.lappcom.com.br/static/css/main.e3586e4b.css.map",
-    "main.831a6608.js.map": "https://cartpol.lappcom.com.br/static/js/main.831a6608.js.map"
+    "main.2a6e0756.js.map": "https://cartpol.lappcom.com.br/static/js/main.2a6e0756.js.map"
   },
   "entrypoints": [
     "static/css/main.e3586e4b.css",
-    "static/js/main.831a6608.js"
+    "static/js/main.2a6e0756.js"
   ]
 }

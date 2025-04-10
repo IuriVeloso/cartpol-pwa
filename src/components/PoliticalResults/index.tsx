@@ -16,6 +16,7 @@ import {
   useGetVotes,
   useGetYears,
   useGetGenerateReport,
+  useGetStateVotes,
 } from "../../hooks/index";
 
 import { Political, County, PoliticalTypes, State } from "../../api/types";
@@ -23,7 +24,7 @@ import { Political, County, PoliticalTypes, State } from "../../api/types";
 import Shapefile from "./components/Shapefile";
 import SelectValues from "./components/SelectValues";
 
-import { zipCountyUrl } from "../../assets/maps";
+import { zipCountyUrl, zipStateUrl } from "../../assets/maps";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -48,6 +49,11 @@ const PoliticalResults: React.FC = () => {
     [county],
   );
 
+  const zipUrlState: string = useMemo(
+    () => (state && zipStateUrl[state.id] ? zipStateUrl[state.id] : null),
+    [state],
+  );
+
   const { data: allStates, isFetching: isLoadingState } = useGetStates();
 
   const {
@@ -65,7 +71,7 @@ const PoliticalResults: React.FC = () => {
     data: searchPoliticals,
     isPending: isLoadingPolitical,
     mutate: mutatePoliticals,
-  } = useGetPoliticals(county, politicalType, year);
+  } = useGetPoliticals(county, politicalType, year, state);
 
   const {
     data: searchPoliticalTypes,
@@ -79,7 +85,15 @@ const PoliticalResults: React.FC = () => {
     data: politicalVotes,
     isPending: isLoadingVotes,
     mutate: mutateVotes,
+    reset: resetVotes,
   } = useGetVotes(political, county);
+
+  const {
+    data: stateVotes,
+    isPending: isLoadingStateVotes,
+    mutate: mutateStateVotes,
+    reset: resetStateVotes,
+  } = useGetStateVotes(political, state);
 
   const handleChangeYear = (event: SelectChangeEvent, value: any) => {
     event.preventDefault();
@@ -122,17 +136,30 @@ const PoliticalResults: React.FC = () => {
 
     setPolitical(value);
 
-    mutateVotes();
+    if (county == null) {
+      resetVotes();
+      mutateStateVotes();
+    } else {
+      resetStateVotes();
+      mutateVotes();
+    }
+    
   };
 
   const shouldRenderMap = useMemo(
     () =>
-      Boolean(zipUrl) &&
+      (Boolean(zipUrl) || Boolean(zipUrlState)) &&
       !isLoadingVotes &&
-      politicalVotes &&
+      !isLoadingStateVotes &&
+      (politicalVotes || stateVotes) &&
       Boolean(political),
-    [zipUrl, isLoadingVotes, politicalVotes, political],
+    [zipUrl, zipUrlState, isLoadingVotes, isLoadingStateVotes, politicalVotes, stateVotes, political],
   );
+
+  console.log({
+    isLoadingVotes,
+    isLoadingStateVotes
+  });
 
   return (
     <Grid
@@ -184,7 +211,7 @@ const PoliticalResults: React.FC = () => {
         <Grid xs={3}>
           <Item>
             <SelectValues
-              disabled={!Boolean(county)}
+              disabled={!Boolean(state)}
               value={politicalType}
               isLoading={isLoadingPoliticalTypes}
               values={searchPoliticalTypes as PoliticalTypes[]}
@@ -215,7 +242,7 @@ const PoliticalResults: React.FC = () => {
           xs="auto">
             <Button
               variant="contained" 
-              loading={isLoadingVotes || isLoadingReport} 
+              loading={(isLoadingVotes || isLoadingStateVotes || isLoadingReport)} 
               disabled={!shouldRenderMap} 
               endIcon={<DownloadIcon />}
               onClick={mutateGenerateReport}
@@ -237,14 +264,16 @@ const PoliticalResults: React.FC = () => {
           zoomSnap={0.5}
           wheelPxPerZoomLevel={120}
         >
-          {isLoadingVotes && (
+          {(isLoadingVotes || isLoadingStateVotes) && (
             <CircularProgress sx={{ mt: "128px" }} size={80} />
           )}
           {shouldRenderMap && (
             <Shapefile
               setVotesInfo={setVotesInfo}
               zipUrl={zipUrl}
+              zipUrlState={zipUrlState}
               politicalData={politicalVotes}
+              stateData={stateVotes}
             />
           )}
         </MapContainer>
