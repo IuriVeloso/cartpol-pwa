@@ -25,11 +25,13 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 64px;
 }
 
 .base-box{
   display: block;
   min-height: 100%;
-  width: calc(100% - 144px);
+  max-width: 1440px;
+  width: 100%;
   font-size: calc(10px + 2vmin);
 }

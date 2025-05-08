@@ -3,7 +3,6 @@ import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
 import shp, { FeatureCollectionWithFilename } from "shpjs";
 import { PoliticalVotes } from "../../../api/types";
-import { normalize } from "../../../utils/normalizer";
 
 const Shapefile: React.FC<{
   zipUrl: string;
@@ -20,12 +19,31 @@ const Shapefile: React.FC<{
     const zipUrl = zipUrlCounty || zipUrlState;
     const isState = Boolean(zipUrlState) && Boolean(stateData);
     const localKey = isState ? "county" : "neighborhood";
+    const localName = isState ? "Município" : "Bairro";
+    const localParentIndicator = isState ? "no Estado" : "no município";
 
     if(!voteData || !zipUrl) {
       return;
     }
 
     const { votes, min_ruesp_can, max_ruesp_can } = voteData;
+
+    const quarter_ruesp_can = (min_ruesp_can+max_ruesp_can)/6
+    const intervalosEleicoes = [
+      { min: min_ruesp_can, max: (min_ruesp_can+quarter_ruesp_can), cor: '#ffffb2', label: "0-1% dos votos" },
+      { min: (min_ruesp_can+quarter_ruesp_can), max: (min_ruesp_can+2*quarter_ruesp_can), cor: '#fed976', label: "1-2%" },
+      { min: (min_ruesp_can+2*quarter_ruesp_can), max: (min_ruesp_can+3*quarter_ruesp_can), cor: '#feb24c', label: "2-5%" },
+      { min: (min_ruesp_can+3*quarter_ruesp_can), max: (min_ruesp_can+4*quarter_ruesp_can), cor: '#fd8d3c', label: "1-2%" },
+      { min: (min_ruesp_can+4*quarter_ruesp_can), max: (min_ruesp_can+5*quarter_ruesp_can), cor: '#f03b20', label: "2-5%" },
+      { min: (min_ruesp_can+5*quarter_ruesp_can), max: (max_ruesp_can+1), cor: '#bd0026', label: "5-10%" }
+  ];
+
+    const getColor = (value: number) => {
+      const i = intervalosEleicoes.find(r => value >= r.min && value < r.max);
+      return i ? i.cor : '#000000';
+    }
+
+
 
     const foundLocals = votes.map((eachVotes) => ({
       ...eachVotes,
@@ -55,13 +73,13 @@ const Shapefile: React.FC<{
               foundLocals[localIndex].foundMap = true;
               const local = foundLocals[localIndex];
 
-              const mapText = `Bairro ${local?.[localKey]} <br/>Votos ${local?.total_votes}<br />% do candidato: ${(Math.round(local?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do bairro: ${(Math.round(local?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do bairro na cidade ${(Math.round(local?.ruesp * 10000) / 100).toFixed(2)}`;
+              const mapText = `${localName} ${local?.[localKey]} <br/>Votos ${local?.total_votes}<br />% do candidato: ${(Math.round(local?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()}: ${(Math.round(local?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()} ${localParentIndicator} ${(Math.round(local?.ruesp * 10000) / 100).toFixed(2)}`;
 
               l.bindTooltip(mapText);
               l.bindPopup(mapText);
             } else {
-              l.bindTooltip(`Bairro ${name_subdistrict} <br/>Votos 0`);
-              l.bindPopup(`Bairro ${name_subdistrict} <br/>Votos 0`);
+              l.bindTooltip(`${localName} ${name_subdistrict} <br/>Votos 0`);
+              l.bindPopup(`${localName} ${name_subdistrict} <br/>Votos 0`);
             }
 
             setVotesInfo(foundLocals);
@@ -85,17 +103,13 @@ const Shapefile: React.FC<{
 
             if (Boolean(local?.total_votes)) {
               return {
-                fillOpacity: normalize(
-                  local?.ruesp_can,
-                  min_ruesp_can,
-                  max_ruesp_can,
-                ),
-                fillColor: "#100069",
-                weight: 1,
+                fillOpacity: 1,
+                fillColor: getColor(local?.ruesp_can),
+                weight: 0.5,
               };
             }
           }
-          return { fillOpacity: 0, fillColor: "#100069", weight: 1 };
+          return { fillOpacity: 1, fillColor: "#ffffb2", weight: 0.5 };
         },
       },
     ).addTo(map);

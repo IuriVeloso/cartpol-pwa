@@ -1,7 +1,7 @@
 import React, { useState, useRef, LegacyRef, useMemo } from "react";
 import { MapContainer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress, Grid, Paper, styled, Button } from "@mui/material";
+import { CircularProgress, Grid, Paper, styled, Button, FormHelperText } from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
 import { Map } from "leaflet";
 
@@ -65,7 +65,7 @@ const PoliticalResults: React.FC = () => {
   const {
     isPending: isLoadingReport,
     mutate: mutateGenerateReport,
-  } = useGetGenerateReport(year, political);
+  } = useGetGenerateReport(year, political, county, state);
 
   const {
     data: searchPoliticals,
@@ -184,29 +184,31 @@ const PoliticalResults: React.FC = () => {
           </Item>
         </Grid>
         <Grid xs={3}>
-          <Item>
+          <Item elevation={1}>
             <SelectValues
               disabled={!Boolean(year)}
               value={state}
               isLoading={isLoadingState}
               values={allStates}
               onChange={handleChangeState}
-              label="Estado"
+              label="Estado (Opcional)"
             />
           </Item>
+          <FormHelperText variant="standard" disabled={false}  id="standard-helperText">Deixar em branco para ver o mapa do Brasil</FormHelperText>
         </Grid>
 
         <Grid xs={6}>
-          <Item>
+          <Item elevation={1}>
             <SelectValues
               disabled={!Boolean(state)}
               value={county}
               isLoading={isLoadingCounty}
               values={searchCounties as County[]}
               onChange={handleChangeCounty}
-              label="Municipio"
+              label="Municipio (Opcional)"
             />
           </Item>
+          <FormHelperText variant="standard" disabled={false}  id="standard-helperText">Deixar em branco para ver o mapa do Estado</FormHelperText>
         </Grid>
         <Grid xs={3}>
           <Item>
@@ -265,7 +267,11 @@ const PoliticalResults: React.FC = () => {
           wheelPxPerZoomLevel={120}
         >
           {(isLoadingVotes || isLoadingStateVotes) && (
+            <div>
+              Carregando mapa...
+              <br />
             <CircularProgress sx={{ mt: "128px" }} size={80} />
+            </div>
           )}
           {shouldRenderMap && (
             <Shapefile

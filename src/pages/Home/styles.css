@@ -1,0 +1,25 @@
+.home-title {
+	color: #0f0f0f;
+	font-size: 20px;
+	font-weight: 600;
+	font-family: "Blinker", sans-serif;
+	font-style: normal;
+}
+
+.home-text {
+	color: #0f0f0f;
+	font-size: 16px;
+	font-weight: 400;
+	font-family: "Blinker", sans-serif;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.home-image {
+	width: 95%;
+	height: auto;
+	border: 8px solid #FF4040;
+	border-radius: 8px;
+	margin: 16px 0;
+	max-width: 720px;
+}

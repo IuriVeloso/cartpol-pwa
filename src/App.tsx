@@ -1,8 +1,11 @@
 import React from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createTheme, ThemeProvider, alpha} from '@mui/material/styles';
+import { BrowserRouter, Routes, Route } from "react-router";
 
 import Home from "./pages/Home";
+import Tool from "./pages/Tool";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import queryClient from "./api/index";
@@ -31,7 +34,6 @@ let theme = createTheme({
 });
 
 theme = createTheme(theme, {
-
   palette: {
     black: theme.palette.augmentColor({
       color: {
@@ -41,24 +43,35 @@ theme = createTheme(theme, {
       },
       name: 'black',
     }),
+    red: theme.palette.augmentColor({
+      color: {
+        main: '#FF4040',
+        light: alpha('#FF4040', 0.5),
+        dark: alpha('#FF4040', 0.9),
+      },
+      name: 'red',
+    }),
   },
 });
 
-
-
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <div className="App base-background">
-          <Header />
-            <div className="base-box">
-              <Home />
-            </div>
-          <Footer />
-        </div>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <div className="App base-background">
+            <Header />
+              <div className="base-box">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tool" element={<Tool />} />
+                </Routes>
+              </div>
+            <Footer />
+          </div>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 }
 

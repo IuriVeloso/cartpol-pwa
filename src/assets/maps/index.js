@@ -37,6 +37,9 @@ import zipTeresopolisUrl from "./county/Teresópolis.zip";
 
 import zipRioDeJaneiroStateUrl from "./state/RJ_Municipios_2022.zip";
 import zipSaoPauloStateUrl from "./state/SP_Municipios_2022.zip";
+import zipMinasGeraisStateUrl from "./state/MG_Municipios_2022.zip";
+import zipEspiritoSantoStateUrl from "./state/ES_Municipios_2022.zip";
+
 
 // import zipProdBelemUrl from "/build/static/media/belem.b0e2a99a09d0d2a32977.zip";
 // import zipProdBeloHorizonteUrl from "/build/static/media/belo_horizonte.f1c971592e40880f2455.zip";
@@ -103,4 +106,6 @@ export const zipCountyUrl = {
 export const zipStateUrl = {
   3: zipSaoPauloStateUrl,
   2: zipRioDeJaneiroStateUrl,
+  1: zipMinasGeraisStateUrl,
+  10: zipEspiritoSantoStateUrl,
 };  

@@ -66,11 +66,27 @@ const useGetPoliticalTypes = (election: Election | null) => {
   });
 };
 
-const useGetGenerateReport = (election: Election | null, political: Political | null) => {
+const useGetGenerateReport = (
+  election: Election | null, 
+  political: Political | null, 
+  county: County | null, 
+  state: State | null
+) => {
   
+  const queryParams: Record<string, string> = {
+    county_id: county == null ? "" : `${county.id}`,
+    state_id: (state == null || Boolean(county)) ? "" : `${state.id}`,
+  };
+
+  for (const key in queryParams) {
+    if(queryParams[key] === "") {
+      delete queryParams[key];
+    }
+  }
+
   return useMutation({
     mutationKey: ["politicals", "types"],
-    mutationFn: () => generateReport(election?.year, political?.id),
+    mutationFn: () => generateReport(election?.year, political?.id, queryParams),
   });
 };
 

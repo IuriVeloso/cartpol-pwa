@@ -41,9 +41,11 @@ export const getStateVotes = async (political_id: string, state_id: string) => {
   return data;
 };
 
-export const generateReport = async (year:number, political_id: number) => {
+export const generateReport = async (year:number, political_id: number,  queryParams: Record<string, string> = {}) => {
 
-  const url = '/report/political-votes/' + year + '/' + political_id;
+  const params = new URLSearchParams(queryParams);
+
+  const url = '/report/political-votes/' + year + '/' + political_id + '?' + params;
 
   await axios.get(url, 
     {responseType: 'blob'} ).then((response) => {

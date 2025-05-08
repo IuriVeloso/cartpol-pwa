@@ -1,1 +1,0 @@
-export const normalize = (value, min, max) => (value-min) / (max- min)

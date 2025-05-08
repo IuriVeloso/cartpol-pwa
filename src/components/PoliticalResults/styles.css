@@ -9,6 +9,12 @@
 	width: 100%;
   }
 
+  #standard-helperText{
+	box-shadow: 0 0 0 0 rgb(0,0,0,0) ,0 0 0 0 rgb(0,0,0,0),0 0 0 0 rgb(0,0,0,0);
+	text-align: right;
+	margin: -6px 8px 0;
+	background-color: #f1f1f1;	
+  }
 
 
  
