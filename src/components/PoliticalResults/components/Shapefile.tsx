@@ -10,40 +10,47 @@ const Shapefile: React.FC<{
   politicalData: PoliticalVotes | undefined;
   stateData: PoliticalVotes | undefined;
   setVotesInfo: (value: []) => void;
-}> = ({ zipUrl: zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo }) => {
+  legendType: string;
+}> = ({ zipUrl: zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo, legendType }) => {
   const { map } = useLeafletContext();
 
   useEffect(() => {
+    L.control.attribution({ prefix: "CartPol" }).addTo(map);
+  }, []);
 
+
+  useEffect(() => {
     const voteData = politicalData || stateData;
     const zipUrl = zipUrlCounty || zipUrlState;
     const isState = Boolean(zipUrlState) && Boolean(stateData);
     const localKey = isState ? "county" : "neighborhood";
     const localName = isState ? "Município" : "Bairro";
     const localParentIndicator = isState ? "no Estado" : "no município";
+    const legendValue = legendType == 'rcan_uesp' ? 'rcan_uesp' : 'ruesp_can';
 
     if(!voteData || !zipUrl) {
       return;
     }
 
-    const { votes, min_ruesp_can, max_ruesp_can } = voteData;
+    const { votes, min_ruesp_can, max_ruesp_can, min_rcan_uesp, max_rcan_uesp } = voteData;
 
-    const quarter_ruesp_can = (min_ruesp_can+max_ruesp_can)/6
+    const min_value = legendType == 'rcan_uesp' ? min_rcan_uesp : min_ruesp_can;
+    const max_value = legendType == 'rcan_uesp' ? max_rcan_uesp : max_ruesp_can;
+
+    const quarter_value = (min_value+max_value)/6
     const intervalosEleicoes = [
-      { min: min_ruesp_can, max: (min_ruesp_can+quarter_ruesp_can), cor: '#ffffb2', label: "0-1% dos votos" },
-      { min: (min_ruesp_can+quarter_ruesp_can), max: (min_ruesp_can+2*quarter_ruesp_can), cor: '#fed976', label: "1-2%" },
-      { min: (min_ruesp_can+2*quarter_ruesp_can), max: (min_ruesp_can+3*quarter_ruesp_can), cor: '#feb24c', label: "2-5%" },
-      { min: (min_ruesp_can+3*quarter_ruesp_can), max: (min_ruesp_can+4*quarter_ruesp_can), cor: '#fd8d3c', label: "1-2%" },
-      { min: (min_ruesp_can+4*quarter_ruesp_can), max: (min_ruesp_can+5*quarter_ruesp_can), cor: '#f03b20', label: "2-5%" },
-      { min: (min_ruesp_can+5*quarter_ruesp_can), max: (max_ruesp_can+1), cor: '#bd0026', label: "5-10%" }
+      { min: min_value, max: (min_value+quarter_value), cor: '#ffffb2', label: "0-1% dos votos" },
+      { min: (min_value+quarter_value), max: (min_value+2*quarter_value), cor: '#fed976', label: "1-2%" },
+      { min: (min_value+2*quarter_value), max: (min_value+3*quarter_value), cor: '#feb24c', label: "2-5%" },
+      { min: (min_value+3*quarter_value), max: (min_value+4*quarter_value), cor: '#fd8d3c', label: "1-2%" },
+      { min: (min_value+4*quarter_value), max: (min_value+5*quarter_value), cor: '#f03b20', label: "2-5%" },
+      { min: (min_value+5*quarter_value), max: (max_value+1), cor: '#bd0026', label: "5-10%" }
   ];
 
     const getColor = (value: number) => {
       const i = intervalosEleicoes.find(r => value >= r.min && value < r.max);
-      return i ? i.cor : '#000000';
+      return i ? i.cor : '#ffffb2';
     }
-
-
 
     const foundLocals = votes.map((eachVotes) => ({
       ...eachVotes,
@@ -101,10 +108,11 @@ const Shapefile: React.FC<{
               (eachData) => !eachData[localKey].localeCompare(name_subdistrict, undefined, { sensitivity: 'base' }),
             );
 
+
             if (Boolean(local?.total_votes)) {
               return {
                 fillOpacity: 1,
-                fillColor: getColor(local?.ruesp_can),
+                fillColor: getColor(local?.[legendValue]),
                 weight: 0.5,
               };
             }
@@ -117,9 +125,8 @@ const Shapefile: React.FC<{
     shp(zipUrl).then((data) => {
       const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
       map.fitBounds(geoJSON.getBounds());
-      L.control.attribution({ prefix: "CartPol" }).addTo(map);
     });
-  }, [map, zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo]);
+  }, [map, zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo, legendType]);
 
   return null;
 };

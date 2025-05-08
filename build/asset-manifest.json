@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://cartpol.lappcom.com.br/static/css/main.8e280a88.css",
-    "main.js": "https://cartpol.lappcom.com.br/static/js/main.ec35ebbd.js",
+    "main.js": "https://cartpol.lappcom.com.br/static/js/main.2a0eb556.js",
     "static/media/MG_Municipios_2022.zip": "https://cartpol.lappcom.com.br/static/media/MG_Municipios_2022.26f56b2d77b6bcf6eb54.zip",
     "static/media/SP_Municipios_2022.zip": "https://cartpol.lappcom.com.br/static/media/SP_Municipios_2022.7a5c74649a42a8a519c1.zip",
     "static/media/RJ_Municipios_2022.zip": "https://cartpol.lappcom.com.br/static/media/RJ_Municipios_2022.21f793b3a3ca72e9e9da.zip",
@@ -16,6 +16,7 @@
     "static/media/porto_alegre.zip": "https://cartpol.lappcom.com.br/static/media/porto_alegre.dbdd9b40aa3d02477151.zip",
     "static/media/Itaboraí.zip": "https://cartpol.lappcom.com.br/static/media/Itaboraí.5253262fab97f8ad0bcb.zip",
     "static/media/sao_paulo.zip": "https://cartpol.lappcom.com.br/static/media/sao_paulo.cb7acf26706c69d6538b.zip",
+    "static/media/image 4.png": "https://cartpol.lappcom.com.br/static/media/image 4.1d70ddd608d2b7cbe622.png",
     "static/media/image 3.png": "https://cartpol.lappcom.com.br/static/media/image 3.28f55658fd0fabe1ba69.png",
     "static/media/Duque de Caxias.zip": "https://cartpol.lappcom.com.br/static/media/Duque de Caxias.feab8e46a8791e70c4cd.zip",
     "static/media/image 5.png": "https://cartpol.lappcom.com.br/static/media/image 5.af06d8fdc3092bf54780.png",
@@ -44,10 +45,10 @@
     "static/media/belem.zip": "https://cartpol.lappcom.com.br/static/media/belem.b0e2a99a09d0d2a32977.zip",
     "index.html": "https://cartpol.lappcom.com.br/index.html",
     "main.8e280a88.css.map": "https://cartpol.lappcom.com.br/static/css/main.8e280a88.css.map",
-    "main.ec35ebbd.js.map": "https://cartpol.lappcom.com.br/static/js/main.ec35ebbd.js.map"
+    "main.2a0eb556.js.map": "https://cartpol.lappcom.com.br/static/js/main.2a0eb556.js.map"
   },
   "entrypoints": [
     "static/css/main.8e280a88.css",
-    "static/js/main.ec35ebbd.js"
+    "static/js/main.2a0eb556.js"
   ]
 }

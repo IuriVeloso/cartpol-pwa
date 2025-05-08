@@ -1,7 +1,7 @@
 import React, { useState, useRef, LegacyRef, useMemo } from "react";
 import { MapContainer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress, Grid, Paper, styled, Button, FormHelperText } from "@mui/material";
+import { CircularProgress, Grid, Paper, styled, Button, FormHelperText, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
 import { Map } from "leaflet";
 
@@ -36,11 +36,15 @@ const Item = styled(Paper)(({ theme }) => ({
 const PoliticalResults: React.FC = () => {
   const mapRef: LegacyRef<Map> = useRef(null);
 
+  console.log("mapRef", mapRef);
+
   const [state, setState] = useState(null);
   const [county, setCounty] = useState(null);
   const [political, setPolitical] = useState(null);
   const [politicalType, setPoliticalType] = useState(null);
   const [year, setYear] = useState(null);
+  const [legendType, setLegendType] = useState("ruesp_can");
+
 
   const [votesInfo, setVotesInfo] = useState([]);
 
@@ -155,11 +159,6 @@ const PoliticalResults: React.FC = () => {
       Boolean(political),
     [zipUrl, zipUrlState, isLoadingVotes, isLoadingStateVotes, politicalVotes, stateVotes, political],
   );
-
-  console.log({
-    isLoadingVotes,
-    isLoadingStateVotes
-  });
 
   return (
     <Grid
@@ -280,9 +279,25 @@ const PoliticalResults: React.FC = () => {
               zipUrlState={zipUrlState}
               politicalData={politicalVotes}
               stateData={stateVotes}
+              legendType={legendType}
             />
           )}
         </MapContainer>
+      </Grid>
+      <Grid item key="map-info" minWidth={"180px"} xs={2}>
+        <Item> 
+          <FormControl fullWidth>
+            <InputLabel disabled={!shouldRenderMap}>Legenda</InputLabel>
+            <Select
+              label="Legenda"
+              onChange={e => setLegendType(e.target.value)}
+              value={legendType}
+            >
+              <MenuItem value="rcan_uesp">RCAN_UESP</MenuItem>
+              <MenuItem value="ruesp_can">RUESP_CAN</MenuItem>
+            </Select>
+          </FormControl>
+        </Item>
       </Grid>
       {/* <div>
         <br />

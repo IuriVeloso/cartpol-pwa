@@ -3,12 +3,13 @@ import React from "react";
 import { Grid, Paper, styled, Button } from "@mui/material";
 import FormsImage from "../../assets/images/image 2.png";
 import MapsImage from "../../assets/images/image 3.png";
+import SubtitleChangeExampleImage from "../../assets/images/image 4.png";
 import StateExampleImage from "../../assets/images/image 5.png";
 
 
 import "./styles.css";
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item = styled(Paper)(() => ({
   textAlign: "left",
   background: "none"
 }));
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
         <Grid item xs={6}>
           <Item className="home-text" elevation={0}>
             <div><b>Alterar legenda do mapa</b> =&gt; Basta alterar a legenda abaixo do mapa</div>
-            <img alt="MAPA-LEGENDA" className="home-image" src={StateExampleImage}/>
+            <img alt="MAPA-LEGENDA" className="home-image" src={SubtitleChangeExampleImage}/>
           </Item>
         </Grid>
       </Grid>
