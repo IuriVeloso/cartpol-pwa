@@ -12,7 +12,7 @@ const Shapefile: React.FC<{
   setVotesInfo: (value: []) => void;
   legendType: string;
 }> = ({ zipUrl: zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo, legendType }) => {
-  const { map } = useLeafletContext();
+  const { map, layersControl } = useLeafletContext();
 
   useEffect(() => {
     L.control.attribution({ prefix: "CartPol" }).addTo(map);
@@ -37,7 +37,7 @@ const Shapefile: React.FC<{
     const min_value = legendType == 'rcan_uesp' ? min_rcan_uesp : min_ruesp_can;
     const max_value = legendType == 'rcan_uesp' ? max_rcan_uesp : max_ruesp_can;
 
-    const quarter_value = (min_value+max_value)/6
+    const quarter_value = (max_value - min_value)/6
     const intervalosEleicoes = [
       { min: min_value, max: (min_value+quarter_value), cor: '#ffffb2', label: "0-1% dos votos" },
       { min: (min_value+quarter_value), max: (min_value+2*quarter_value), cor: '#fed976', label: "1-2%" },
@@ -122,10 +122,36 @@ const Shapefile: React.FC<{
       },
     ).addTo(map);
 
+
+    const legend = L.control({ position: "bottomleft" });
+
+    
+    legend.onAdd = () => {
+      const div = L.DomUtil.create('div', 'info legend');
+
+
+      for (let i = 0; i < intervalosEleicoes.length; i++) {
+          div.innerHTML +=
+              '<i style="background:' + getColor(intervalosEleicoes[i].min) + '"></i> ' +
+              (Math.round( intervalosEleicoes[i].min * 10000) / 100).toFixed(2) + '%' + 
+              (intervalosEleicoes[i + 1] ? '&ndash;' 
+                + (Math.round( intervalosEleicoes[i].max * 10000) / 100).toFixed(2) + '% <br>' : '+');
+      }
+
+      return div;
+    }
+
+    legend.addTo(map);
+
     shp(zipUrl).then((data) => {
       const geoJSON = geo.addData(data as FeatureCollectionWithFilename);
       map.fitBounds(geoJSON.getBounds());
     });
+
+    return () => {
+      legend.remove();
+      geo.remove();
+    }
   }, [map, zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo, legendType]);
 
   return null;

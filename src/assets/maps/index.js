@@ -35,6 +35,61 @@ import zipTanguaUrl from "./county/Tanguá.zip";
 import zipTeresopolisUrl from "./county/Teresópolis.zip";
 // import zipVoltaRedondaUrl from "./county/Volta Redonda.zip";
 
+import zipAbaeteUrl from "./county/Abaeté.zip";
+import zipAraxaUrl from "./county/Araxá.zip";
+import zipAugustoDeLimaUrl from "./county/Augusto de Lima.zip";
+import zipBarbacenaUrl from "./county/Barbacena.zip";
+import zipBetimUrl from "./county/Betim.zip";
+import zipBicasUrl from "./county/Bicas.zip";
+import zipCampinaVerdeUrl from "./county/Campina Verde.zip";
+import zipCanapolisUrl from "./county/Canápolis.zip";
+import zipCarangolaUrl from "./county/Carangola.zip";
+import zipCaratingaUrl from "./county/Caratinga.zip";
+import zipCarmoDoParanaibaUrl from "./county/Carmo do Paranaíba.zip";
+import zipConceicaoDasAlagoasUrl from "./county/Conceição das Alagoas.zip";
+import zipCoqueiralUrl from "./county/Coqueiral.zip";
+import zipCoromandelUrl from "./county/Coromandel.zip";
+import zipCoronelFabricianoUrl from "./county/Coronel Fabriciano.zip";
+import zipCrucilandiaUrl from "./county/Crucilândia.zip";
+import zipGovernadorValadaresUrl from "./county/Governador Valadares.zip";
+import zipIbiaUrl from "./county/Ibiá.zip";
+import zipIpatingaUrl from "./county/Ipatinga.zip";
+import zipItabiritoUrl from "./county/Itabirito.zip";
+import zipItaunaUrl from "./county/Itaúna.zip";
+import zipItuiutabaUrl from "./county/Ituiutaba.zip";
+import zipJuizDeForaUrl from "./county/Juiz de Fora.zip";
+import zipMatutinaUrl from "./county/Matutina.zip";
+import zipMonteAlegreDeMinasUrl from "./county/Monte Alegre de Minas.zip";
+import zipNanuqueUrl from "./county/Nanuque.zip";
+import zipNaterciaUrl from "./county/Natércia.zip";
+import zipNovaEraUrl from "./county/Nova Era.zip";
+import zipNovaPonteUrl from "./county/Nova Ponte.zip";
+import zipPainsUrl from "./county/Pains.zip";
+import zipPassosUrl from "./county/Passos.zip";
+import zipPatosDeMinasUrl from "./county/Patos de Minas.zip";
+import zipPatrocinioUrl from "./county/Patrocínio.zip";
+import zipPecanhasUrl from "./county/Peçanha.zip";
+import zipPiraporaUrl from "./county/Pirapora.zip";
+import zipPocosDeCaldasUrl from "./county/Poços de Caldas.zip";
+import zipPompeuUrl from "./county/Pompéu.zip";
+import zipPonteNovaUrl from "./county/Ponte Nova.zip";
+import zipRioCascaUrl from "./county/Rio Casca.zip";
+import zipSacramentoUrl from "./county/Sacramento.zip";
+import zipSantaJulianaUrl from "./county/Santa Juliana.zip";
+import zipSaoGeraldoDoBaixioUrl from "./county/São Geraldo do Baixio.zip";
+import zipSaoGotardoUrl from "./county/São Gotardo.zip";
+import zipSaoJoaoDelReiUrl from "./county/São João del Rei.zip";
+import zipSaoRomaoUrl from "./county/São Romão.zip";
+import zipSobraliaUrl from "./county/Sobrália.zip";
+import zipTeofiloOtoniUrl from "./county/Teófilo Otoni.zip";
+import zipTimoteoUrl from "./county/Timóteo.zip";
+import zipTresCoracoesUrl from "./county/Três Corações.zip";
+import zipTupaciguaraUrl from "./county/Tupaciguara.zip";
+import zipUberabaUrl from "./county/Uberaba.zip";
+import zipUberlandiaUrl from "./county/Uberlândia.zip";
+import zipUruanaDeMinasUrl from "./county/Uruana de Minas.zip";
+import zipVarginhaUrl from "./county/Varginha.zip";
+
 import zipRioDeJaneiroStateUrl from "./state/RJ_Municipios_2022.zip";
 import zipSaoPauloStateUrl from "./state/SP_Municipios_2022.zip";
 import zipMinasGeraisStateUrl from "./state/MG_Municipios_2022.zip";
@@ -101,6 +156,61 @@ export const zipCountyUrl = {
   80: zipTanguaUrl,
   48: zipTeresopolisUrl,
   // 41: zipVoltaRedondaUrl,
+
+  1222: zipAbaeteUrl,
+  922: zipAraxaUrl,
+  1177: zipAugustoDeLimaUrl,
+  1016: zipBarbacenaUrl,
+  815: zipBetimUrl,
+  993: zipBicasUrl,
+  1087: zipCampinaVerdeUrl,
+  868: zipCanapolisUrl,
+  849: zipCarangolaUrl,
+  860: zipCaratingaUrl,
+  1089: zipCarmoDoParanaibaUrl,
+  833: zipConceicaoDasAlagoasUrl,
+  1510: zipCoqueiralUrl,
+  953: zipCoromandelUrl,
+  893: zipCoronelFabricianoUrl,
+  1272: zipCrucilandiaUrl,
+  819: zipGovernadorValadaresUrl,
+  970: zipIbiaUrl,
+  913: zipIpatingaUrl,
+  858: zipItabiritoUrl,
+  846: zipItaunaUrl,
+  945: zipItuiutabaUrl,
+  838: zipJuizDeForaUrl,
+  1647: zipMatutinaUrl,
+  960: zipMonteAlegreDeMinasUrl,
+  1021: zipNanuqueUrl,
+  1594: zipNaterciaUrl,
+  1344: zipNovaEraUrl,
+  1486: zipNovaPonteUrl,
+  1267: zipPainsUrl,
+  844: zipPassosUrl,
+  848: zipPatosDeMinasUrl,
+  892: zipPatrocinioUrl,
+  1217: zipPecanhasUrl,
+  872: zipPiraporaUrl,
+  911: zipPocosDeCaldasUrl,
+  1188: zipPompeuUrl,
+  1071: zipPonteNovaUrl,
+  1108: zipRioCascaUrl,
+  938: zipSacramentoUrl,
+  1383: zipSantaJulianaUrl,
+  1043: zipSaoGeraldoDoBaixioUrl,
+  1017: zipSaoGotardoUrl,
+  888: zipSaoJoaoDelReiUrl,
+  903: zipSaoRomaoUrl,
+  1197: zipSobraliaUrl,
+  883: zipTeofiloOtoniUrl,
+  857: zipTimoteoUrl,
+  1093: zipTresCoracoesUrl,
+  931: zipTupaciguaraUrl,
+  847: zipUberabaUrl,
+  863: zipUberlandiaUrl,
+  823: zipUruanaDeMinasUrl,
+  861: zipVarginhaUrl,
 };
 
 export const zipStateUrl = {

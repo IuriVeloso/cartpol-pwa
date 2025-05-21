@@ -1,5 +1,5 @@
 import React, { useState, useRef, LegacyRef, useMemo } from "react";
-import { MapContainer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { CircularProgress, Grid, Paper, styled, Button, FormHelperText, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -35,8 +35,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const PoliticalResults: React.FC = () => {
   const mapRef: LegacyRef<Map> = useRef(null);
-
-  console.log("mapRef", mapRef);
 
   const [state, setState] = useState(null);
   const [county, setCounty] = useState(null);
@@ -273,24 +271,33 @@ const PoliticalResults: React.FC = () => {
             </div>
           )}
           {shouldRenderMap && (
-            <Shapefile
-              setVotesInfo={setVotesInfo}
-              zipUrl={zipUrl}
-              zipUrlState={zipUrlState}
-              politicalData={politicalVotes}
-              stateData={stateVotes}
-              legendType={legendType}
-            />
+            <>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Shapefile
+                setVotesInfo={setVotesInfo}
+                zipUrl={zipUrl}
+                zipUrlState={zipUrlState}
+                politicalData={politicalVotes}
+                stateData={stateVotes}
+                legendType={legendType}
+              />
+            </>
           )}
         </MapContainer>
       </Grid>
       <Grid item key="map-info" minWidth={"180px"} xs={2}>
         <Item> 
           <FormControl fullWidth>
-            <InputLabel disabled={!shouldRenderMap}>Legenda</InputLabel>
+            <InputLabel disabled={!shouldRenderMap}>Indice</InputLabel>
             <Select
-              label="Legenda"
-              onChange={e => setLegendType(e.target.value)}
+              label="Índice do Mapa"
+              onChange={e => {
+                setLegendType(e.target.value);
+                // mapRef.current?.remove();
+              }}
               value={legendType}
             >
               <MenuItem value="rcan_uesp">RCAN_UESP</MenuItem>
