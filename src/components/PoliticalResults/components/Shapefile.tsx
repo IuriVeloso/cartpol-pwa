@@ -12,7 +12,7 @@ const Shapefile: React.FC<{
   setVotesInfo: (value: []) => void;
   legendType: string;
 }> = ({ zipUrl: zipUrlCounty, zipUrlState, politicalData, stateData, setVotesInfo, legendType }) => {
-  const { map, layersControl } = useLeafletContext();
+  const { map } = useLeafletContext();
 
   useEffect(() => {
     L.control.attribution({ prefix: "CartPol" }).addTo(map);
@@ -26,7 +26,7 @@ const Shapefile: React.FC<{
     const localKey = isState ? "county" : "neighborhood";
     const localName = isState ? "Município" : "Bairro";
     const localParentIndicator = isState ? "no Estado" : "no município";
-    const legendValue = legendType == 'rcan_uesp' ? 'rcan_uesp' : 'ruesp_can';
+    const legendValue = legendType === 'rcan_uesp' ? 'rcan_uesp' : 'ruesp_can';
 
     if(!voteData || !zipUrl) {
       return;
@@ -34,8 +34,8 @@ const Shapefile: React.FC<{
 
     const { votes, min_ruesp_can, max_ruesp_can, min_rcan_uesp, max_rcan_uesp } = voteData;
 
-    const min_value = legendType == 'rcan_uesp' ? min_rcan_uesp : min_ruesp_can;
-    const max_value = legendType == 'rcan_uesp' ? max_rcan_uesp : max_ruesp_can;
+    const min_value = legendType === 'rcan_uesp' ? min_rcan_uesp : min_ruesp_can;
+    const max_value = legendType === 'rcan_uesp' ? max_rcan_uesp : max_ruesp_can;
 
     const quarter_value = (max_value - min_value)/6
     const intervalosEleicoes = [
