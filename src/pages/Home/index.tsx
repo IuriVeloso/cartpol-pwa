@@ -77,7 +77,7 @@ const Home: React.FC = () => {
         </Grid>
         <Grid item xs={6}>
           <Item className="home-text" elevation={0}>
-            <div><b>Alterar legenda do mapa</b> =&gt; Basta alterar a legenda abaixo do mapa</div>
+            <div><b>Alterar legenda do mapa</b> =&gt; Basta alterar o campo Índice, abaixo do mapa</div>
             <img alt="MAPA-LEGENDA" className="home-image" src={SubtitleChangeExampleImage}/>
           </Item>
         </Grid>

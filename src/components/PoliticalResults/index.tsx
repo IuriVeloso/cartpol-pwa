@@ -263,6 +263,10 @@ const PoliticalResults: React.FC = () => {
           zoomSnap={0.5}
           wheelPxPerZoomLevel={120}
         >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
           {(isLoadingVotes || isLoadingStateVotes) && (
             <div>
               Carregando mapa...
@@ -272,10 +276,6 @@ const PoliticalResults: React.FC = () => {
           )}
           {shouldRenderMap && (
             <>
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
               <Shapefile
                 setVotesInfo={setVotesInfo}
                 zipUrl={zipUrl}
