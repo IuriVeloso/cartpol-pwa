@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# CartPol PWA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CartPol PWA é uma aplicação web progressiva (PWA) desenvolvida em React para visualização de resultados eleitorais em mapas, voltado para auxiliar o cientista político que deseja incluir esses dados em sua pesquisa.
 
-## Available Scripts
+## 🚀 Funcionalidades
 
-In the project directory, you can run:
+- Visualização em mapas dos resultados eleitorais
+- Filtros por região, partido e candidato
+- Análise de dados eleitorais
+- Exportação de dados em relatórios
+- Interface  intuitiva
 
-### `npm start`
+## 🛠️ Tecnologias Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [React](https://reactjs.org/)
+- [Create React App](https://create-react-app.dev/)
+- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- [Material UI](https://mui.com/)
+- [styled-components](https://styled-components.com/)
+- [Service Workers](https://developer.mozilla.org/pt-BR/docs/Web/API/Service_Worker_API) para PWA
+- [Heroku](https://www.heroku.com/) para deploy
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📦 Instalação
 
-### `npm test`
+Clone o repositório e instale as dependências:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/IuriVeloso/cartpol-pwa.git
+cd cartpol-pwa
+npm install
+```
 
-### `npm run build`
+## 🏃 Como rodar
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para iniciar o servidor de desenvolvimento:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Acesse [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-### `npm run eject`
+## 🧪 Testes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para rodar os testes:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🏗️ Build para produção
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Para gerar a versão de produção:
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📲 Instalação como PWA
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+No navegador, clique em "Instalar" ou "Adicionar à tela inicial" para instalar a aplicação como um app no seu dispositivo.
+
+---
+
+Desenvolvido por [Iuri Veloso](https://github.com/IuriVeloso)
