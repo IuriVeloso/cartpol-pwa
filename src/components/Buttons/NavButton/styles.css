@@ -1,0 +1,12 @@
+.nav-button.MuiButtonBase-root {
+  color: #0f0f0f;
+  font-size: 1.5rem;
+  font-family: "Blinker", sans-serif;
+  text-transform: capitalize;
+  background-color: transparent;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    color: #751313;
+    background-color: transparent;
+  }
+}
