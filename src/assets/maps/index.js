@@ -128,7 +128,6 @@ import zipRioGrandeDoSulUrl from "./state/RS_Municipios_2024.zip";
 import zipSantaCatarinaUrl from "./state/SC_Municipios_2024.zip";
 
 //Imports Municípios Nordeste
-
 import zipAbaiaraUrl from "./county/Nordeste/Abaiara.zip";
 import zipAbreueLimaUrl from "./county/Nordeste/Abreu_e_Lima.zip";
 import zipAcariUrl from "./county/Nordeste/Acari.zip";
@@ -469,6 +468,72 @@ import zipUrucuritubaUrl from "./county/Norte/Urucurituba.zip";
 import zipUrupaUrl from "./county/Norte/Urupa.zip";
 import zipVilhenaUrl from "./county/Norte/Vilhena.zip";
 import zipXapuriUrl from "./county/Norte/Xapuri.zip";
+
+//Imports Municípios Centro-Oeste
+import zipAguaBoaUrl from "./county/Centro-Oeste/Agua_Boa.zip";
+import zipAltaFlorestaUrl from "./county/Centro-Oeste/Alta_Floresta.zip";
+import zipAltoAraguaiaUrl from "./county/Centro-Oeste/Alto_Araguaia.zip";
+import zipAngelicaUrl from "./county/Centro-Oeste/Angelica.zip";
+import zipAntonioJoaoUrl from "./county/Centro-Oeste/Antonio_Joao.zip";
+import zipApiacasUrl from "./county/Centro-Oeste/Apiacas.zip";
+import zipAquidauanaUrl from "./county/Centro-Oeste/Aquidauana.zip";
+import zipAraguainhaUrl from "./county/Centro-Oeste/Araguainha.zip";
+import zipArenapolisUrl from "./county/Centro-Oeste/Arenapolis.zip";
+import zipBarradoBugresUrl from "./county/Centro-Oeste/Barra_do_Bugres.zip";
+import zipBatayporaUrl from "./county/Centro-Oeste/Bataypora.zip";
+import zipBelaVistaUrl from "./county/Centro-Oeste/Bela_Vista.zip";
+import zipBonitoUrl from "./county/Centro-Oeste/Bonito.zip";
+import zipBrasnorteUrl from "./county/Centro-Oeste/Brasnorte.zip";
+import zipCaceresUrl from "./county/Centro-Oeste/Caceres.zip";
+import zipCampinapolisUrl from "./county/Centro-Oeste/Campinapolis.zip";
+import zipCampoGrandeUrl from "./county/Centro-Oeste/Campo_Grande.zip";
+import zipCampoNovodoParecisUrl from "./county/Centro-Oeste/Campo_Novo_do_Parecis.zip";
+import zipCampoVerdeUrl from "./county/Centro-Oeste/Campo_Verde.zip";
+import zipCarlindaUrl from "./county/Centro-Oeste/Carlinda.zip";
+import zipCastanheiraUrl from "./county/Centro-Oeste/Castanheira.zip";
+import zipClaudiaUrl from "./county/Centro-Oeste/Claudia.zip";
+import zipComodoroUrl from "./county/Centro-Oeste/Comodoro.zip";
+import zipCorumbaUrl from "./county/Centro-Oeste/Corumba.zip";
+import zipCuiabaUrl from "./county/Centro-Oeste/Cuiaba.zip";
+import zipEldoradoUrl from "./county/Centro-Oeste/Eldorado.zip";
+import zipGloriaDOesteUrl from "./county/Centro-Oeste/Gloria_D'Oeste.zip";
+import zipGuarantadoNorteUrl from "./county/Centro-Oeste/Guaranta_do_Norte.zip";
+import zipGuiratingaUrl from "./county/Centro-Oeste/Guiratinga.zip";
+import zipIguatemiUrl from "./county/Centro-Oeste/Iguatemi.zip";
+import zipItaubaUrl from "./county/Centro-Oeste/Itauba.zip";
+import zipIvinhemaUrl from "./county/Centro-Oeste/Ivinhema.zip";
+import zipJuinaUrl from "./county/Centro-Oeste/Juina.zip";
+import zipLadarioUrl from "./county/Centro-Oeste/Ladario.zip";
+import zipLagunaCarapaUrl from "./county/Centro-Oeste/Laguna_Carapa.zip";
+import zipLucasdoRioVerdeUrl from "./county/Centro-Oeste/Lucas_do_Rio_Verde.zip";
+import zipNaviraiUrl from "./county/Centro-Oeste/Navirai.zip";
+import zipNobresUrl from "./county/Centro-Oeste/Nobres.zip";
+import zipNortelandiaUrl from "./county/Centro-Oeste/Nortelandia.zip";
+import zipNovaAndradinaUrl from "./county/Centro-Oeste/Nova_Andradina.zip";
+import zipNovaMarilandiaUrl from "./county/Centro-Oeste/Nova_Marilandia.zip";
+import zipNovaMutumUrl from "./county/Centro-Oeste/Nova_Mutum.zip";
+import zipNovaOlimpiaUrl from "./county/Centro-Oeste/Nova_Olimpia.zip";
+import zipNovaXavantinaUrl from "./county/Centro-Oeste/Nova_Xavantina.zip";
+import zipParanatingaUrl from "./county/Centro-Oeste/Paranatinga.zip";
+import zipPiresdoRioUrl from "./county/Centro-Oeste/Pires_do_Rio.zip";
+import zipPontaPoraUrl from "./county/Centro-Oeste/Ponta_Pora.zip";
+import zipPonteseLacerdaUrl from "./county/Centro-Oeste/Pontes_e_Lacerda.zip";
+import zipPosseUrl from "./county/Centro-Oeste/Posse.zip";
+import zipPoxoreuUrl from "./county/Centro-Oeste/Poxoreu.zip";
+import zipRibeiraozinhoUrl from "./county/Centro-Oeste/Ribeiraozinho.zip";
+import zipRondolandiaUrl from "./county/Centro-Oeste/Rondolandia.zip";
+import zipRosarioOesteUrl from "./county/Centro-Oeste/Rosario_Oeste.zip";
+import zipSantoAfonsoUrl from "./county/Centro-Oeste/Santo_Afonso.zip";
+import zipSaoGabrieldoOesteUrl from "./county/Centro-Oeste/Sao_Gabriel_do_Oeste.zip";
+import zipSaoJosedoRioClaroUrl from "./county/Centro-Oeste/Sao_Jose_do_Rio_Claro.zip";
+import zipSinopUrl from "./county/Centro-Oeste/Sinop.zip";
+import zipSorrisoUrl from "./county/Centro-Oeste/Sorriso.zip";
+import zipTangaradaSerraUrl from "./county/Centro-Oeste/Tangara_da_Serra.zip";
+import zipTapurahUrl from "./county/Centro-Oeste/Tapurah.zip";
+import zipTresLagoasUrl from "./county/Centro-Oeste/Tres_Lagoas.zip";
+import zipUniaodoSulUrl from "./county/Centro-Oeste/Uniao_do_Sul.zip";
+import zipVarzeaGrandeUrl from "./county/Centro-Oeste/Varzea_Grande.zip";
+import zipVilaRicaUrl from "./county/Centro-Oeste/Vila_Rica.zip";
 
 // import zipProdBelemUrl from "/build/static/media/belem.b0e2a99a09d0d2a32977.zip";
 // import zipProdBeloHorizonteUrl from "/build/static/media/belo_horizonte.f1c971592e40880f2455.zip";
@@ -925,6 +990,72 @@ export const zipCountyUrl = {
   5136: zipJutaiUrl,
   5139: zipManaquiriUrl,
   5159: zipFaroUrl,
+
+  //Municípios Centro-Oeste
+  5174: zipCuiabaUrl,
+  5177: zipCaceresUrl,
+  5185: zipSaoGabrieldoOesteUrl,
+  5190: zipVarzeaGrandeUrl,
+  5191: zipCampoGrandeUrl,
+  5202: zipAquidauanaUrl,
+  5203: zipGuarantadoNorteUrl,
+  5211: zipCorumbaUrl,
+  5222: zipPonteseLacerdaUrl,
+  5228: zipBarradoBugresUrl,
+  5229: zipPontaPoraUrl,
+  5231: zipAltoAraguaiaUrl,
+  5233: zipTresLagoasUrl,
+  5246: zipSinopUrl,
+  5259: zipLucasdoRioVerdeUrl,
+  5262: zipTangaradaSerraUrl,
+  5268: zipNovaAndradinaUrl,
+  5296: zipIguatemiUrl,
+  5304: zipVilaRicaUrl,
+  5306: zipBrasnorteUrl,
+  5316: zipIvinhemaUrl,
+  5327: zipComodoroUrl,
+  5329: zipBonitoUrl,
+  5336: zipLadarioUrl,
+  5343: zipCampoNovodoParecisUrl,
+  5352: zipPosseUrl,
+  5353: zipRosarioOesteUrl,
+  5355: zipPiresdoRioUrl,
+  5363: zipNobresUrl,
+  5367: zipCampoVerdeUrl,
+  5375: zipAltaFlorestaUrl,
+  5377: zipCampinapolisUrl,
+  5381: zipApiacasUrl,
+  5391: zipAntonioJoaoUrl,
+  5395: zipNovaXavantinaUrl,
+  5396: zipRibeiraozinhoUrl,
+  5397: zipSorrisoUrl,
+  5400: zipPoxoreuUrl,
+  5403: zipArenapolisUrl,
+  5410: zipNaviraiUrl,
+  5411: zipNovaMutumUrl,
+  5417: zipAguaBoaUrl,
+  5426: zipCastanheiraUrl,
+  5432: zipLagunaCarapaUrl,
+  5449: zipNovaOlimpiaUrl,
+  5454: zipCarlindaUrl,
+  5459: zipParanatingaUrl,
+  5468: zipNovaMarilandiaUrl,
+  5474: zipJuinaUrl,
+  5478: zipTapurahUrl,
+  5479: zipNortelandiaUrl,
+  5487: zipSaoJosedoRioClaroUrl,
+  5492: zipUniaodoSulUrl,
+  5506: zipGuiratingaUrl,
+  5525: zipEldoradoUrl,
+  5527: zipClaudiaUrl,
+  5544: zipSantoAfonsoUrl,
+  5556: zipBatayporaUrl,
+  5561: zipGloriaDOesteUrl,
+  5562: zipBelaVistaUrl,
+  5571: zipItaubaUrl,
+  5584: zipAngelicaUrl,
+  5597: zipRondolandiaUrl,
+  5635: zipAraguainhaUrl,
 };
 
 export const zipStateUrl = {
