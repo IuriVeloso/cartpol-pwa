@@ -1065,11 +1065,11 @@ export const zipStateUrl = {
   1: zipMinasGeraisStateUrl,
   10: zipEspiritoSantoStateUrl,
 
-  //Centro-oeste (substituir por ids corretos)
-  1111: zipDistritoFederalUrl,
-  2222: zipGoiasUrl,
-  3333: zipMatoGrossoDoSulUrl,
-  4444: zipMatoGrossoUrl,
+  //Centro-oeste
+  69: zipGoiasUrl,
+  70: zipMatoGrossoUrl,
+  71: zipMatoGrossoDoSulUrl,
+  72: zipDistritoFederalUrl,
 
   //Nordeste
   14: zipAlagoasUrl,
