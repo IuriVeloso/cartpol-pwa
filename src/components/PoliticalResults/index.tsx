@@ -14,6 +14,8 @@ import {
   MenuItem,
   Dialog,
   DialogContent,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import { Map } from "leaflet";
@@ -57,6 +59,7 @@ const PoliticalResults: React.FC = () => {
   const [legendType, setLegendType] = useState("ruesp_can");
   const [openDialog, setOpenDialog] = useState(false);
   const [votesInfo, setVotesInfo] = useState([]);
+  const [hasNeighborhood, setHasNeighborhood] = useState(false);
 
   const zipUrl: string = useMemo(
     () => (county && zipCountyUrl[county.id] ? zipCountyUrl[county.id] : null),
@@ -98,14 +101,14 @@ const PoliticalResults: React.FC = () => {
     isPending: isLoadingVotes,
     mutate: mutateVotes,
     reset: resetVotes,
-  } = useGetVotes(political, county);
+  } = useGetVotes(political, county, hasNeighborhood);
 
   const {
     data: stateVotes,
     isPending: isLoadingStateVotes,
     mutate: mutateStateVotes,
     reset: resetStateVotes,
-  } = useGetStateVotes(political, state);
+  } = useGetStateVotes(political, state, hasNeighborhood);
 
   const handleChangeYear = (event: SelectChangeEvent, value: any) => {
     event.preventDefault();
@@ -188,6 +191,14 @@ const PoliticalResults: React.FC = () => {
     };
   }, [openDialog]);
 
+  useEffect(() => {
+    if (shouldRenderMap) {
+      resetStateVotes();
+      mutateVotes();
+    }
+    return;
+  }, [hasNeighborhood]);
+
   const isLoadingGenerateReport =
     isLoadingVotes || isLoadingStateVotes || isLoadingReport;
 
@@ -264,7 +275,7 @@ const PoliticalResults: React.FC = () => {
             />
           </Item>
         </Grid>
-        <Grid xs>
+        <Grid xs={6}>
           <Item>
             <SelectValues
               disabled={!Boolean(politicalType)}
@@ -283,7 +294,7 @@ const PoliticalResults: React.FC = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          xs="auto"
+          xs={3}
         >
           <Button
             variant="contained"
@@ -304,6 +315,18 @@ const PoliticalResults: React.FC = () => {
           >
             Gerar Relatório
           </Button>
+        </Grid>
+        <Grid className="switch">
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked
+                checked={hasNeighborhood}
+                onChange={() => setHasNeighborhood(!hasNeighborhood)}
+              />
+            }
+            label="Mostrar porcentagens por bairro"
+          />
         </Grid>
       </Grid>
       <Grid item key="map-container" xs={12}>

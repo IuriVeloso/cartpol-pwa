@@ -5,7 +5,7 @@ import {
   getPoliticalTypes,
   getVotes,
   generateReport,
-  getStateVotes
+  getStateVotes,
 } from "../../api/politicals";
 import { County, Political, PoliticalTypes, State } from "../../api/types";
 import { Election } from "../../api/time/types";
@@ -16,16 +16,15 @@ const useGetPoliticals = (
   election: Election | null,
   state: State | null,
 ) => {
-
   const queryParams: Record<string, string> = {
     county_id: county == null ? "" : `${county.id}`,
     political_type_id: political_type == null ? "" : `${political_type.id}`,
     year: election == null ? "" : `${election.year}`,
-    state_id: (state == null || Boolean(county)) ? "" : `${state.id}`,
+    state_id: state == null || Boolean(county) ? "" : `${state.id}`,
   };
 
   for (const key in queryParams) {
-    if(queryParams[key] === "") {
+    if (queryParams[key] === "") {
       delete queryParams[key];
     }
   }
@@ -36,24 +35,32 @@ const useGetPoliticals = (
   });
 };
 
-const useGetVotes = (political: Political | null, county: County | null,) => {
+const useGetVotes = (
+  political: Political | null,
+  county: County | null,
+  neighborhood: boolean,
+) => {
   const county_id = county == null ? "" : `${county.id}`;
-  const political_id = political == null ? "" : `${political.id}`
+  const political_id = political == null ? "" : `${political.id}`;
 
   return useMutation({
     mutationKey: ["politicals", "votes"],
-    mutationFn: () => getVotes(political_id, county_id),
+    mutationFn: () => getVotes(political_id, county_id, neighborhood),
     initialData: [],
   });
 };
 
-const useGetStateVotes = (political: Political | null, state: State | null) => {
+const useGetStateVotes = (
+  political: Political | null,
+  state: State | null,
+  neighborhood: boolean,
+) => {
   const state_id = state == null ? "" : `${state.id}`;
   const political_id = political == null ? "" : `${political.id}`;
 
   return useMutation({
     mutationKey: ["politicals", "state_votes"],
-    mutationFn: () => getStateVotes(political_id, state_id),
+    mutationFn: () => getStateVotes(political_id, state_id, neighborhood),
   });
 };
 
@@ -67,27 +74,33 @@ const useGetPoliticalTypes = (election: Election | null) => {
 };
 
 const useGetGenerateReport = (
-  election: Election | null, 
-  political: Political | null, 
-  county: County | null, 
-  state: State | null
+  election: Election | null,
+  political: Political | null,
+  county: County | null,
+  state: State | null,
 ) => {
-  
   const queryParams: Record<string, string> = {
     county_id: county == null ? "" : `${county.id}`,
-    state_id: (state == null || Boolean(county)) ? "" : `${state.id}`,
+    state_id: state == null || Boolean(county) ? "" : `${state.id}`,
   };
 
   for (const key in queryParams) {
-    if(queryParams[key] === "") {
+    if (queryParams[key] === "") {
       delete queryParams[key];
     }
   }
 
   return useMutation({
     mutationKey: ["politicals", "types"],
-    mutationFn: () => generateReport(election?.year, political?.id, queryParams),
+    mutationFn: () =>
+      generateReport(election?.year, political?.id, queryParams),
   });
 };
 
-export { useGetPoliticals, useGetVotes, useGetPoliticalTypes, useGetGenerateReport, useGetStateVotes };
+export {
+  useGetPoliticals,
+  useGetVotes,
+  useGetPoliticalTypes,
+  useGetGenerateReport,
+  useGetStateVotes,
+};
