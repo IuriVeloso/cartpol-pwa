@@ -53,6 +53,9 @@ const HowToUse: React.FC = () => {
             &emsp;&emsp;&bull;&ensp; Clique em Gerar Relatório para exportar os
             dados obtidos em PDF
             <br />
+            &emsp;&emsp;&bull;&ensp; Passe o cursor em cima dos polígonos para
+            ver o resultado do bairro
+            <br />
             <br />
             3. Significado dos resultados
             <br />
