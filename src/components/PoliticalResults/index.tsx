@@ -1,8 +1,21 @@
-import React, { useState, useRef, LegacyRef, useMemo } from "react";
+import React, { useState, useRef, LegacyRef, useMemo, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress, Grid, Paper, styled, Button, FormHelperText, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import DownloadIcon from '@mui/icons-material/Download';
+import {
+  CircularProgress,
+  Grid,
+  Paper,
+  styled,
+  Button,
+  FormHelperText,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Dialog,
+  DialogContent,
+} from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import { Map } from "leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -42,8 +55,7 @@ const PoliticalResults: React.FC = () => {
   const [politicalType, setPoliticalType] = useState(null);
   const [year, setYear] = useState(null);
   const [legendType, setLegendType] = useState("ruesp_can");
-
-
+  const [openDialog, setOpenDialog] = useState(false);
   const [votesInfo, setVotesInfo] = useState([]);
 
   const zipUrl: string = useMemo(
@@ -64,10 +76,8 @@ const PoliticalResults: React.FC = () => {
     mutate: mutateCounties,
   } = useGetCounties(state);
 
-  const {
-    isPending: isLoadingReport,
-    mutate: mutateGenerateReport,
-  } = useGetGenerateReport(year, political, county, state);
+  const { isPending: isLoadingReport, mutate: mutateGenerateReport } =
+    useGetGenerateReport(year, political, county, state);
 
   const {
     data: searchPoliticals,
@@ -137,6 +147,7 @@ const PoliticalResults: React.FC = () => {
     event.preventDefault();
 
     setPolitical(value);
+    setOpenDialog(true);
 
     if (county == null) {
       resetVotes();
@@ -145,7 +156,6 @@ const PoliticalResults: React.FC = () => {
       resetStateVotes();
       mutateVotes();
     }
-    
   };
 
   const shouldRenderMap = useMemo(
@@ -155,8 +165,31 @@ const PoliticalResults: React.FC = () => {
       !isLoadingStateVotes &&
       (politicalVotes || stateVotes) &&
       Boolean(political),
-    [zipUrl, zipUrlState, isLoadingVotes, isLoadingStateVotes, politicalVotes, stateVotes, political],
+    [
+      zipUrl,
+      zipUrlState,
+      isLoadingVotes,
+      isLoadingStateVotes,
+      politicalVotes,
+      stateVotes,
+      political,
+    ],
   );
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (openDialog) {
+      timer = setTimeout(() => {
+        setOpenDialog(false);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [openDialog]);
+
+  const isLoadingGenerateReport =
+    isLoadingVotes || isLoadingStateVotes || isLoadingReport;
 
   return (
     <Grid
@@ -188,10 +221,16 @@ const PoliticalResults: React.FC = () => {
               isLoading={isLoadingState}
               values={allStates}
               onChange={handleChangeState}
-              label="Estado (Opcional)"
+              label="Estado"
             />
           </Item>
-          <FormHelperText variant="standard" disabled={false}  id="standard-helperText">Deixar em branco para ver o mapa do Brasil</FormHelperText>
+          <FormHelperText
+            variant="standard"
+            disabled={false}
+            id="standard-helperText"
+          >
+            Deixar em branco para ver o mapa do Brasil
+          </FormHelperText>
         </Grid>
 
         <Grid xs={6}>
@@ -205,7 +244,13 @@ const PoliticalResults: React.FC = () => {
               label="Municipio (Opcional)"
             />
           </Item>
-          <FormHelperText variant="standard" disabled={false}  id="standard-helperText">Deixar em branco para ver o mapa do Estado</FormHelperText>
+          <FormHelperText
+            variant="standard"
+            disabled={false}
+            id="standard-helperText"
+          >
+            Deixar em branco para ver o mapa do Estado
+          </FormHelperText>
         </Grid>
         <Grid xs={3}>
           <Item>
@@ -231,24 +276,34 @@ const PoliticalResults: React.FC = () => {
             />
           </Item>
         </Grid>
-        <Grid 
+        <Grid
           item
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
-          xs="auto">
-            <Button
-              variant="contained" 
-              loading={(isLoadingVotes || isLoadingStateVotes || isLoadingReport)} 
-              disabled={!shouldRenderMap} 
-              endIcon={<DownloadIcon />}
-              onClick={mutateGenerateReport}
-              color="black"
-              >
-              Gerar Relatório
-            </Button>
+          xs="auto"
+        >
+          <Button
+            variant="contained"
+            disabled={!shouldRenderMap}
+            endIcon={
+              isLoadingGenerateReport ? (
+                <CircularProgress
+                  color="inherit"
+                  size="20px"
+                  className="generateButton"
+                />
+              ) : (
+                <DownloadIcon />
+              )
+            }
+            onClick={() => mutateGenerateReport()}
+            color="black"
+          >
+            Gerar Relatório
+          </Button>
         </Grid>
       </Grid>
       <Grid item key="map-container" xs={12}>
@@ -271,7 +326,7 @@ const PoliticalResults: React.FC = () => {
             <div>
               Carregando mapa...
               <br />
-            <CircularProgress sx={{ mt: "128px" }} size={80} />
+              <CircularProgress sx={{ mt: "128px" }} size={80} />
             </div>
           )}
           {shouldRenderMap && (
@@ -284,17 +339,23 @@ const PoliticalResults: React.FC = () => {
                 stateData={stateVotes}
                 legendType={legendType}
               />
+              <Dialog open={openDialog} disablePortal>
+                <DialogContent>
+                  Passe o cursor em cima dos polígonos para ver o resultado do
+                  bairro
+                </DialogContent>
+              </Dialog>
             </>
           )}
         </MapContainer>
       </Grid>
       <Grid item key="map-info" minWidth={"180px"} xs={2}>
-        <Item> 
+        <Item>
           <FormControl fullWidth>
             <InputLabel disabled={!shouldRenderMap}>Indice</InputLabel>
             <Select
               label="Índice do Mapa"
-              onChange={e => {
+              onChange={(e) => {
                 setLegendType(e.target.value);
                 // mapRef.current?.remove();
               }}
