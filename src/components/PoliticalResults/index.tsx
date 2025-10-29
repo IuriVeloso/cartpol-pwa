@@ -195,6 +195,7 @@ const PoliticalResults: React.FC = () => {
     if (shouldRenderMap) {
       resetStateVotes();
       mutateVotes();
+      setOpenDialog(true);
     }
     return;
   }, [hasNeighborhood]);
