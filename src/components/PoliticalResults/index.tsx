@@ -317,7 +317,7 @@ const PoliticalResults: React.FC = () => {
             Gerar Relatório
           </Button>
         </Grid>
-        <Grid className="switch">
+        {/* <Grid className="switch">
           <FormControlLabel
             control={
               <Switch
@@ -328,7 +328,7 @@ const PoliticalResults: React.FC = () => {
             }
             label="Mostrar porcentagens por bairro"
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid item key="map-container" xs={12}>
         <MapContainer
