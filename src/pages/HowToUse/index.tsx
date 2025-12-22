@@ -16,7 +16,7 @@ const Item = styled(Paper)(() => ({
 
 const HowToUse: React.FC = () => {
   return (
-    <Grid container marginTop={4}>
+    <Grid container marginTop={4} marginBottom={4}>
       <Grid container xs={12}>
         <Grid item xs={6}>
           <Item className="home-title" elevation={0}>
