@@ -232,7 +232,7 @@ const PoliticalResults: React.FC = () => {
           isLoading={isLoadingGenerateReport}
         />
       </div>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={
           <Switch
             defaultChecked
@@ -242,7 +242,7 @@ const PoliticalResults: React.FC = () => {
         }
         label="Mostrar porcentagens por bairro"
         className="switch"
-      />
+      /> */}
       <MapComponent
         legendType={legendType}
         openDialog={openDialog}
