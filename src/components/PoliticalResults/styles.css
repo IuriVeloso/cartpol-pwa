@@ -1,6 +1,7 @@
 .base-results {
   margin: 30px 0;
   width: 100%;
+
 }
 
 .grid {
@@ -10,6 +11,7 @@
     "year state county county"
     "role political political button";
   gap: 1.3rem 1rem;
+  margin-bottom: 1rem;
 
   .county {
     grid-area: county;

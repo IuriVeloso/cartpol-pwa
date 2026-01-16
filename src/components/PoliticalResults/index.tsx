@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { FormControlLabel, Switch, Box } from "@mui/material";
+import { Box } from "@mui/material";
 
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
