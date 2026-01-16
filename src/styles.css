@@ -14,9 +14,9 @@ code {
 }
 
 .App {
-	text-align: center;
-  }
-  
+  text-align: center;
+}
+
 .base-background {
   background-color: #f1f1f1;
   min-height: 100vh;
@@ -28,7 +28,7 @@ code {
   padding: 0 64px;
 }
 
-.base-box{
+.base-box {
   display: block;
   min-height: 100%;
   max-width: 1440px;

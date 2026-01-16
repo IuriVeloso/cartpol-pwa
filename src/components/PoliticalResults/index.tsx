@@ -1,24 +1,6 @@
-import React, { useState, useRef, LegacyRef, useMemo, useEffect } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useState, useMemo, useEffect } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
-import {
-  CircularProgress,
-  Grid,
-  Paper,
-  styled,
-  Button,
-  FormHelperText,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Dialog,
-  DialogContent,
-  FormControlLabel,
-  Switch,
-} from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
-import { Map } from "leaflet";
+import { FormControlLabel, Switch, Box } from "@mui/material";
 
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
@@ -36,21 +18,12 @@ import {
 
 import { Political, County, PoliticalTypes, State } from "../../api/types";
 
-import Shapefile from "./components/Shapefile";
-import SelectValues from "./components/SelectValues";
-
 import { zipCountyUrl, zipStateUrl } from "../../assets/maps";
-
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  margin: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import GenarateButton from "components/Buttons/GenerateButton";
+import MapComponent from "components/PoliticalResults/components/MapContainer";
+import SelectValues from "./components/SelectValues/SelectValues";
 
 const PoliticalResults: React.FC = () => {
-  const mapRef: LegacyRef<Map> = useRef(null);
-
   const [state, setState] = useState(null);
   const [county, setCounty] = useState(null);
   const [political, setPolitical] = useState(null);
@@ -204,193 +177,86 @@ const PoliticalResults: React.FC = () => {
     isLoadingVotes || isLoadingStateVotes || isLoadingReport;
 
   return (
-    <Grid
-      key="base-results"
-      className="base-results"
-      xs={12}
-      container
-      rowSpacing={3}
-    >
-      <Grid className="results-screen" key="results-screen" xs={12} container>
-        <Grid xs={3}>
-          <Item>
-            <SelectValues
-              disabled={false}
-              value={year}
-              isLoading={isLoadingYears}
-              values={searchElections}
-              onChange={handleChangeYear}
-              label="Ano"
-              param="year"
-            />
-          </Item>
-        </Grid>
-        <Grid xs={3}>
-          <Item elevation={1}>
-            <SelectValues
-              disabled={!Boolean(year)}
-              value={state}
-              isLoading={isLoadingState}
-              values={allStates}
-              onChange={handleChangeState}
-              label="Estado"
-            />
-          </Item>
-          <FormHelperText
-            variant="standard"
-            disabled={false}
-            id="standard-helperText"
-          >
-            Deixar em branco para ver o mapa do Brasil
-          </FormHelperText>
-        </Grid>
+    <Box component="form" className="base-results" key="base-results">
+      <div className="grid">
+        <SelectValues
+          disabled={false}
+          value={year}
+          isLoading={isLoadingYears}
+          values={searchElections}
+          onChange={handleChangeYear}
+          label="Ano"
+          param="year"
+          className="year"
+        />
+        <SelectValues
+          disabled={!Boolean(year)}
+          value={state}
+          isLoading={isLoadingState}
+          values={allStates}
+          onChange={handleChangeState}
+          label="Estado"
+          className="state"
+        />
 
-        <Grid xs={6}>
-          <Item elevation={1}>
-            <SelectValues
-              disabled={!Boolean(state)}
-              value={county}
-              isLoading={isLoadingCounty}
-              values={searchCounties as County[]}
-              onChange={handleChangeCounty}
-              label="Municipio (Opcional)"
-            />
-          </Item>
-          <FormHelperText
-            variant="standard"
-            disabled={false}
-            id="standard-helperText"
-          >
-            Deixar em branco para ver o mapa do Estado
-          </FormHelperText>
-        </Grid>
-        <Grid xs={3}>
-          <Item>
-            <SelectValues
-              disabled={!Boolean(state)}
-              value={politicalType}
-              isLoading={isLoadingPoliticalTypes}
-              values={searchPoliticalTypes as PoliticalTypes[]}
-              onChange={handleChangePoliticalType}
-              label="Cargo"
-            />
-          </Item>
-        </Grid>
-        <Grid xs={6}>
-          <Item>
-            <SelectValues
-              disabled={!Boolean(politicalType)}
-              value={political}
-              isLoading={isLoadingPolitical}
-              values={searchPoliticals as Political[]}
-              onChange={handleChangePolitical}
-              label="Politico"
-            />
-          </Item>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          xs={3}
-        >
-          <Button
-            variant="contained"
-            disabled={!shouldRenderMap}
-            endIcon={
-              isLoadingGenerateReport ? (
-                <CircularProgress
-                  color="inherit"
-                  size="20px"
-                  className="generateButton"
-                />
-              ) : (
-                <DownloadIcon />
-              )
-            }
-            onClick={() => mutateGenerateReport()}
-            color="black"
-          >
-            Gerar Relatório
-          </Button>
-        </Grid>
-        {/* <Grid className="switch">
-          <FormControlLabel
-            control={
-              <Switch
-                defaultChecked
-                checked={hasNeighborhood}
-                onChange={() => setHasNeighborhood(!hasNeighborhood)}
-              />
-            }
-            label="Mostrar porcentagens por bairro"
+        <SelectValues
+          disabled={!Boolean(state)}
+          value={county}
+          isLoading={isLoadingCounty}
+          values={searchCounties as County[]}
+          onChange={handleChangeCounty}
+          label="Municipio"
+          className="county"
+        />
+        <SelectValues
+          disabled={!Boolean(state)}
+          value={politicalType}
+          isLoading={isLoadingPoliticalTypes}
+          values={searchPoliticalTypes as PoliticalTypes[]}
+          onChange={handleChangePoliticalType}
+          label="Cargo"
+          className="role"
+        />
+        <SelectValues
+          disabled={!Boolean(politicalType)}
+          value={political}
+          isLoading={isLoadingPolitical}
+          values={searchPoliticals as Political[]}
+          onChange={handleChangePolitical}
+          label="Politico"
+          className="political"
+        />
+        <GenarateButton
+          disabled={!shouldRenderMap}
+          onClick={() => mutateGenerateReport()}
+          isLoading={isLoadingGenerateReport}
+        />
+      </div>
+      {/* <FormControlLabel
+        control={
+          <Switch
+            defaultChecked
+            checked={hasNeighborhood}
+            onChange={() => setHasNeighborhood(!hasNeighborhood)}
           />
-        </Grid> */}
-      </Grid>
-      <Grid item key="map-container" xs={12}>
-        <MapContainer
-          zoomAnimation={true}
-          fadeAnimation={true}
-          style={{ height: "50vh" }}
-          ref={mapRef}
-          key={political?.name}
-          attributionControl={false}
-          zoomDelta={0.5}
-          zoomSnap={0.5}
-          wheelPxPerZoomLevel={120}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {(isLoadingVotes || isLoadingStateVotes) && (
-            <div>
-              Carregando mapa...
-              <br />
-              <CircularProgress sx={{ mt: "128px" }} size={80} />
-            </div>
-          )}
-          {shouldRenderMap && (
-            <>
-              <Shapefile
-                setVotesInfo={setVotesInfo}
-                zipUrl={zipUrl}
-                zipUrlState={zipUrlState}
-                politicalData={politicalVotes}
-                stateData={stateVotes}
-                legendType={legendType}
-              />
-              <Dialog open={openDialog} disablePortal>
-                <DialogContent>
-                  Passe o cursor em cima dos polígonos para ver o resultado do
-                  bairro
-                </DialogContent>
-              </Dialog>
-            </>
-          )}
-        </MapContainer>
-      </Grid>
-      <Grid item key="map-info" minWidth={"180px"} xs={2}>
-        <Item>
-          <FormControl fullWidth>
-            <InputLabel disabled={!shouldRenderMap}>Indice</InputLabel>
-            <Select
-              label="Índice do Mapa"
-              onChange={(e) => {
-                setLegendType(e.target.value);
-                // mapRef.current?.remove();
-              }}
-              value={legendType}
-            >
-              <MenuItem value="rcan_uesp">RCAN_UESP</MenuItem>
-              <MenuItem value="ruesp_can">RUESP_CAN</MenuItem>
-            </Select>
-          </FormControl>
-        </Item>
-      </Grid>
+        }
+        label="Mostrar porcentagens por bairro"
+        className="switch"
+      /> */}
+      <MapComponent
+        legendType={legendType}
+        openDialog={openDialog}
+        key={political?.name}
+        setVotesInfo={setVotesInfo}
+        zipUrl={zipUrl}
+        zipUrlState={zipUrlState}
+        politicalVotes={politicalVotes}
+        stateVotes={stateVotes}
+        shouldRenderMap={shouldRenderMap}
+        setLegendType={setLegendType}
+        className="map"
+      />
+
       {/* <div>
         <br />
         total votos contabilizados: {politicalVotes?.total_political_votes}
@@ -415,7 +281,7 @@ const PoliticalResults: React.FC = () => {
           )}
         </table>
       </div> */}
-    </Grid>
+    </Box>
   );
 };
 

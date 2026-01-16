@@ -1,13 +1,30 @@
-.footer-container{
-	display: flex;
-	width: calc(100%);
-	margin-top: auto;
-	margin-bottom: 16px;
+.footer-container {
+  display: flex;
+  width: calc(100%);
+  margin-top: auto;
+  background-color: rgb(255, 64, 64);
+  padding: 2rem 4rem;
+  align-items: center;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-start;
+    gap: 0.5rem;
+
+    > span {
+      width: fit-content;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
 }
 
-.footer-logos{
-	margin: 16px;
-	max-width: 360px;
-	min-width: 240px;
-	width: 40%;
+.footer-logos {
+  max-width: 360px;
+  min-width: 240px;
+  width: 30%;
 }
