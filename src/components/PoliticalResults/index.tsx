@@ -124,7 +124,7 @@ const PoliticalResults: React.FC = () => {
 
     setPolitical(value);
     setOpenDialog(true);
-
+    console.log(county, 'county');
     if (county == null) {
       resetVotes();
       mutateStateVotes();
