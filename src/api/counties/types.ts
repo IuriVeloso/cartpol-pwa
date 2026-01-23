@@ -3,4 +3,4 @@ export type County = {
   name: string;
   tse_id: number;
   state: number;
-};
+} | null;

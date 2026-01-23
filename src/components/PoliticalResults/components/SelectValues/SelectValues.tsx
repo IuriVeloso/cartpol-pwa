@@ -4,9 +4,9 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-import { FormControl, FormHelperText } from "@mui/material";
+import { FormControl } from "@mui/material";
 import { County, Political, PoliticalTypes, State } from "api/types";
-import { Election } from "api/time/types";
+import { Election } from "api/year/types";
 import "./styles.css";
 import { formatClassName } from "utils/formatters/formatClassName";
 
@@ -18,8 +18,8 @@ interface SelectValuesInterface {
   label: string;
   disabled: boolean;
   param?: string;
-  helpText?: string;
   className?: string;
+  noOptionsText?: string;
 }
 
 const SelectValues: React.FC<SelectValuesInterface> = ({
@@ -30,7 +30,7 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
   label,
   disabled,
   className,
-  helpText,
+  noOptionsText = "Nenhum resultado encontrado",
   param = "name",
 }) => {
   return (
@@ -50,19 +50,10 @@ const SelectValues: React.FC<SelectValuesInterface> = ({
         clearText="Limpar"
         openText="Abrir"
         closeText="Fechar"
-        noOptionsText="Nenhum resultado encontrado"
+        noOptionsText={noOptionsText}
         getOptionLabel={(opt) => opt[param]}
         renderInput={(params) => <TextField {...params} label={label} />}
       />
-      {helpText && (
-        <FormHelperText
-          variant="standard"
-          disabled={false}
-          id="standard-helperText"
-        >
-          {helpText}
-        </FormHelperText>
-      )}
     </FormControl>
   );
 };

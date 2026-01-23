@@ -8,19 +8,22 @@ import {
   getStateVotes,
 } from "../../api/politicals";
 import { County, Political, PoliticalTypes, State } from "../../api/types";
-import { Election } from "../../api/time/types";
+import { Election } from "../../api/year/types";
+
+const countIsNull = (county: County) =>
+  county == null || county.id == null ? "" : `${county.id}`;
 
 const useGetPoliticals = (
-  county: County | null,
+  county: County,
   political_type: PoliticalTypes | null,
-  election: Election | null,
+  election: Election,
   state: State | null,
 ) => {
   const queryParams: Record<string, string> = {
-    county_id: county == null ? "" : `${county.id}`,
+    county_id: countIsNull(county),
     political_type_id: political_type == null ? "" : `${political_type.id}`,
     year: election == null ? "" : `${election.year}`,
-    state_id: state == null || Boolean(county) ? "" : `${state.id}`,
+    state_id: state == null ? "" : `${state.id}`,
   };
 
   for (const key in queryParams) {
@@ -37,10 +40,10 @@ const useGetPoliticals = (
 
 const useGetVotes = (
   political: Political | null,
-  county: County | null,
+  county: County,
   neighborhood: boolean,
 ) => {
-  const county_id = county == null ? "" : `${county.id}`;
+  const county_id = countIsNull(county);
   const political_id = political == null ? "" : `${political.id}`;
 
   return useMutation({
@@ -74,14 +77,14 @@ const useGetPoliticalTypes = (election: Election | null) => {
 };
 
 const useGetGenerateReport = (
-  election: Election | null,
+  election: Election,
   political: Political | null,
-  county: County | null,
+  county: County,
   state: State | null,
 ) => {
   const queryParams: Record<string, string> = {
-    county_id: county == null ? "" : `${county.id}`,
-    state_id: state == null || Boolean(county) ? "" : `${state.id}`,
+    county_id: countIsNull(county),
+    state_id: state == null ? "" : `${state.id}`,
   };
 
   for (const key in queryParams) {
