@@ -69,7 +69,7 @@ const MapComponent: React.FC<Props> = ({
           <div>
             Carregando mapa...
             <br />
-            <CircularProgress sx={{ mt: "128px" }} size={80} />
+            <CircularProgress sx={{ mt: "180px" }} size={50} color="inherit" />
           </div>
         )}
         {shouldRenderMap && (

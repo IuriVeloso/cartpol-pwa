@@ -22,17 +22,23 @@ import { zipCountyUrl, zipStateUrl } from "../../assets/maps";
 import GenarateButton from "components/Buttons/GenerateButton";
 import MapComponent from "components/PoliticalResults/components/MapContainer";
 import SelectValues from "./components/SelectValues/SelectValues";
+import { Election } from "api/year/types";
 
 const PoliticalResults: React.FC = () => {
   const [state, setState] = useState(null);
-  const [county, setCounty] = useState(null);
+  const [county, setCounty] = useState<County>(null);
   const [political, setPolitical] = useState(null);
   const [politicalType, setPoliticalType] = useState(null);
-  const [year, setYear] = useState(null);
+  const [year, setYear] = useState<Election>(null);
   const [legendType, setLegendType] = useState("ruesp_can");
   const [openDialog, setOpenDialog] = useState(false);
   const [votesInfo, setVotesInfo] = useState([]);
   const [hasNeighborhood, setHasNeighborhood] = useState(false);
+
+  const isMunicipalElection = (year: Election) => {
+    const electionYear = year?.year;
+    if (electionYear) return [2016, 2020, 2024].includes(electionYear);
+  };
 
   const zipUrl: string = useMemo(
     () => (county && zipCountyUrl[county.id] ? zipCountyUrl[county.id] : null),
@@ -124,8 +130,8 @@ const PoliticalResults: React.FC = () => {
 
     setPolitical(value);
     setOpenDialog(true);
-    console.log(county, 'county');
-    if (county == null) {
+
+    if (county?.id == null) {
       resetVotes();
       mutateStateVotes();
     } else {
@@ -157,7 +163,7 @@ const PoliticalResults: React.FC = () => {
     if (openDialog) {
       timer = setTimeout(() => {
         setOpenDialog(false);
-      }, 3000);
+      }, 6000);
     }
     return () => {
       clearTimeout(timer);
@@ -173,8 +179,19 @@ const PoliticalResults: React.FC = () => {
     return;
   }, [hasNeighborhood]);
 
+  useEffect(() => {
+    mutatePoliticals();
+  }, [state]);
+
   const isLoadingGenerateReport =
     isLoadingVotes || isLoadingStateVotes || isLoadingReport;
+
+  const allCounties = isMunicipalElection(year)
+    ? searchCounties
+    : [
+        { id: null, name: "Selecionar Todos", state: null, tse_id: null },
+        ...(searchCounties || []),
+      ];
 
   return (
     <Box component="form" className="base-results" key="base-results">
@@ -203,7 +220,7 @@ const PoliticalResults: React.FC = () => {
           disabled={!Boolean(state)}
           value={county}
           isLoading={isLoadingCounty}
-          values={searchCounties as County[]}
+          values={allCounties as County[]}
           onChange={handleChangeCounty}
           label="Municipio"
           className="county"
@@ -218,13 +235,18 @@ const PoliticalResults: React.FC = () => {
           className="role"
         />
         <SelectValues
-          disabled={!Boolean(politicalType)}
+          disabled={!Boolean(politicalType) || !Boolean(state)}
           value={political}
           isLoading={isLoadingPolitical}
           values={searchPoliticals as Political[]}
           onChange={handleChangePolitical}
           label="Politico"
           className="political"
+          noOptionsText={
+            isMunicipalElection(year)
+              ? "Seleciona um município para filtrar os políticos"
+              : ""
+          }
         />
         <GenarateButton
           disabled={!shouldRenderMap}
@@ -255,6 +277,7 @@ const PoliticalResults: React.FC = () => {
         shouldRenderMap={shouldRenderMap}
         setLegendType={setLegendType}
         className="map"
+        isLoading={isLoadingVotes || isLoadingStateVotes}
       />
 
       {/* <div>
