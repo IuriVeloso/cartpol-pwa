@@ -23,7 +23,7 @@ const useGetPoliticals = (
     county_id: countIsNull(county),
     political_type_id: political_type == null ? "" : `${political_type.id}`,
     year: election == null ? "" : `${election.year}`,
-    state_id: state == null ? "" : `${state.id}`,
+    state_id: state == null || Boolean(county?.id) ? "" : `${state.id}`,
   };
 
   for (const key in queryParams) {
