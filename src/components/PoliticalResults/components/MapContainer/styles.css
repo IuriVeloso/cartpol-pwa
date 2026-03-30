@@ -7,6 +7,11 @@
   height: 100%;
 }
 
+.mapWithOverlay {
+  position: relative;
+  width: 100%;
+}
+
 .mapContainer {
   display: grid;
   row-gap: 2rem;

@@ -6,7 +6,9 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
+  Typography,
 } from "@mui/material";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { Map } from "leaflet";
@@ -47,50 +49,75 @@ const MapComponent: React.FC<Props> = ({
   className,
 }) => {
   const mapRef: LegacyRef<Map> = useRef(null);
+  const activeVotes = politicalVotes ?? stateVotes;
+  const totalPoliticalVotes = activeVotes?.total_political_votes;
 
   return (
     <Box className={formatClassName([className, "mapContainer"])}>
-      <MapContainer
-        zoomAnimation={true}
-        fadeAnimation={true}
-        style={{ height: "50vh" }}
-        ref={mapRef}
-        key={key}
-        attributionControl={false}
-        zoomDelta={0.5}
-        zoomSnap={0.5}
-        wheelPxPerZoomLevel={120}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {isLoading && (
-          <div>
-            Carregando mapa...
-            <br />
-            <CircularProgress sx={{ mt: "128px" }} size={80} />
-          </div>
+      <Box className="mapWithOverlay">
+        <MapContainer
+          zoomAnimation={true}
+          fadeAnimation={true}
+          style={{ height: "50vh" }}
+          ref={mapRef}
+          key={key}
+          attributionControl={false}
+          zoomDelta={0.5}
+          zoomSnap={0.5}
+          wheelPxPerZoomLevel={120}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {isLoading && (
+            <div>
+              Carregando mapa...
+              <br />
+              <CircularProgress sx={{ mt: "128px" }} size={80} />
+            </div>
+          )}
+          {shouldRenderMap && (
+            <>
+              <Shapefile
+                setVotesInfo={setVotesInfo}
+                zipUrl={zipUrl}
+                zipUrlState={zipUrlState}
+                politicalData={politicalVotes}
+                stateData={stateVotes}
+                legendType={legendType}
+              />
+              <Dialog open={openDialog} disablePortal>
+                <DialogContent>
+                  Passe o cursor em cima dos polígonos para ver o resultado do
+                  bairro
+                </DialogContent>
+              </Dialog>
+            </>
+          )}
+        </MapContainer>
+        {shouldRenderMap && totalPoliticalVotes != null && (
+          <Paper
+            elevation={3}
+            sx={{
+              position: "absolute",
+              top: 12,
+              right: 12,
+              zIndex: 1000,
+              px: 2,
+              py: 1.25,
+              pointerEvents: "none",
+            }}
+          >
+            <Typography variant="caption" color="text.secondary" display="block">
+              Total de votos do candidato
+            </Typography>
+            <Typography variant="h6" component="p" sx={{ fontWeight: 600, lineHeight: 1.3 }}>
+              {totalPoliticalVotes.toLocaleString("pt-BR")}
+            </Typography>
+          </Paper>
         )}
-        {shouldRenderMap && (
-          <>
-            <Shapefile
-              setVotesInfo={setVotesInfo}
-              zipUrl={zipUrl}
-              zipUrlState={zipUrlState}
-              politicalData={politicalVotes}
-              stateData={stateVotes}
-              legendType={legendType}
-            />
-            <Dialog open={openDialog} disablePortal>
-              <DialogContent>
-                Passe o cursor em cima dos polígonos para ver o resultado do
-                bairro
-              </DialogContent>
-            </Dialog>
-          </>
-        )}
-      </MapContainer>
+      </Box>
       <FormControl fullWidth>
         <InputLabel disabled={!shouldRenderMap}>Índice do Mapa</InputLabel>
         <Select

@@ -80,7 +80,7 @@ const Shapefile: React.FC<{
               foundLocals[localIndex].foundMap = true;
               const local = foundLocals[localIndex];
 
-              const mapText = `${localName} ${local?.[localKey]} <br/>Votos ${local?.total_votes}<br />% do candidato: ${(Math.round(local?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()}: ${(Math.round(local?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()} ${localParentIndicator} ${(Math.round(local?.ruesp * 10000) / 100).toFixed(2)}`;
+              const mapText = `${localName} ${local?.[localKey]} <br/>Total de votos: ${local?.total_votes}<br />% do candidato: ${(Math.round(local?.ruesp_can * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()}: ${(Math.round(local?.rcan_uesp * 10000) / 100).toFixed(2)}<br />% do ${localName.toLocaleLowerCase()} ${localParentIndicator} ${(Math.round(local?.ruesp * 10000) / 100).toFixed(2)}`;
 
               l.bindTooltip(mapText);
               l.bindPopup(mapText);

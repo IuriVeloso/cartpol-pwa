@@ -16,6 +16,7 @@ export type PoliticalVotes = {
   max_ruesp_can: number;
   min_rcan_uesp: number;
   max_rcan_uesp: number;
+  total_political_votes?: number;
 };
 
 export type VotesNeighborhood = {
